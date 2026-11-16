@@ -1,0 +1,17 @@
+/* ---------- Дії в шапці звіту й підтвердження «Почати спочатку» ---------- */
+
+/* Дії у шапці звіту — підписи синьою ручкою, а не кнопки-коробки; між ними повітря. */
+.report-actions {
+  gap: var(--space-3) var(--space-5);
+}
+
+.restart-confirm {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 34rem;
+}
+
+.restart-confirm p {
+  color: var(--ink);
+  font-weight: 600;
+}

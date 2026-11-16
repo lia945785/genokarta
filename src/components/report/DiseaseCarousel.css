@@ -1,0 +1,159 @@
+/* ---------- Звіт: карусель хвороб ---------- */
+
+/*
+ * Одна хвороба на всю ширину — назва ніколи не ламається посеред слова. Стрілки по боках
+ * перемикають на сусідню (з її назвою поруч), крапки внизу — на будь-яку. Сам звіт про хворобу
+ * відкривається під каруселлю.
+ */
+.carousel {
+  display: grid;
+  grid-template-areas:
+    'prev current next'
+    'dots dots dots';
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: var(--print-shadow);
+}
+
+.carousel__arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.carousel__arrow--prev {
+  grid-area: prev;
+  justify-self: start;
+}
+
+.carousel__arrow--next {
+  grid-area: next;
+  justify-self: end;
+}
+
+.carousel__arrow:hover {
+  background: var(--accent-soft);
+}
+
+.carousel__arrow:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.carousel__arrow svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+/* Назва сусідньої хвороби біля стрілки: тихо, графітом, обрізається трикрапкою, якщо не вміщається. */
+.carousel__neighbor {
+  overflow: hidden;
+  color: var(--muted);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Поточна хвороба: лише назва, по центру. */
+.carousel__current {
+  display: flex;
+  grid-area: current;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.carousel__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.carousel__dots {
+  display: flex;
+  grid-area: dots;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Крапка — 24 px ціль натискання, видима частина 10 px; поточна — видовжена синя. */
+.carousel__dot {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.carousel__dot::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: width 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.carousel__dot:hover::before {
+  background: var(--subtle);
+}
+
+.carousel__dot[aria-current='true']::before {
+  width: 22px;
+  background: var(--accent);
+}
+
+.carousel__dot:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+  border-radius: var(--radius-control);
+}
+
+/* На телефоні біля стрілок лише значки: ширину віддано назві поточної хвороби. */
+@media (max-width: 640px) {
+  .carousel {
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .carousel__neighbor {
+    display: none;
+  }
+
+  .carousel__name {
+    font-size: 1.1875rem;
+  }
+
+  .carousel__current {
+    gap: var(--space-2);
+  }
+}
+
+@media (pointer: coarse) {
+  .carousel__dot {
+    width: 32px;
+    height: 32px;
+  }
+}

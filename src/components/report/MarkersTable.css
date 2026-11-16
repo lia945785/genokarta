@@ -1,0 +1,161 @@
+/* ---------- Таблиця маркерів у стилі консолі ---------- */
+
+.markers-block {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.table-wrap {
+  position: relative;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tile);
+  background: var(--well);
+}
+
+.markers {
+  width: 100%;
+  min-width: 440px;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.markers caption {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--row-line);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.markers th,
+.markers td {
+  padding: 9px 6px;
+  border-bottom: 1px solid var(--row-line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markers tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.markers th:first-child,
+.markers td:first-child {
+  padding-left: 14px;
+}
+
+.markers th:last-child,
+.markers td:last-child {
+  padding-right: 14px;
+}
+
+.markers thead th {
+  color: var(--subtle);
+  font-size: var(--text-label);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+.markers tbody tr:hover {
+  background: var(--row-hover);
+}
+
+.markers .rsid {
+  color: var(--accent-ink);
+}
+
+.markers td.gene {
+  color: var(--ink);
+}
+
+.markers .num {
+  text-align: right;
+}
+
+.geno {
+  display: inline-flex;
+  padding: 0 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: var(--surface);
+  letter-spacing: 0.08em;
+}
+
+.geno__allele {
+  color: var(--muted);
+}
+
+.geno__allele.is-effect {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.sort-button {
+  display: inline-flex;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.contribution {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.contribution--zero {
+  color: var(--subtle);
+  font-weight: 500;
+}
+
+.contribution--protective {
+  color: var(--green-2);
+}
+
+.contribution-tag {
+  margin-left: 6px;
+  color: var(--green-2);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.table-note {
+  color: var(--subtle);
+  font-size: 0.8125rem;
+}
+
+/* Кнопка сортування в заголовку таблиці: ціль натискання щонайменше 24 px (WCAG 2.5.8). */
+.sort-button {
+  min-height: 24px;
+  align-items: center;
+}
+
+@media (pointer: coarse) {
+  .sort-button {
+    min-height: 44px;
+  }
+}
+
+
+/* ---------- Друк ---------- */
+
+@media print {
+  .table-wrap {
+    overflow: visible;
+  }
+
+  .markers {
+    min-width: 0;
+  }
+}

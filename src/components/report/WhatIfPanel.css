@@ -1,0 +1,50 @@
+/* ---------- Що, якщо ---------- */
+
+.what-if {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) 0 0;
+  border: 0;
+  border-top: 1px solid var(--row-line);
+}
+
+.what-if legend {
+  display: grid;
+  float: left;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.what-if__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.choice--compact {
+  align-items: center;
+  padding: 9px 12px;
+}
+
+.choice--compact input {
+  margin-top: 0;
+}
+
+.what-if .choice {
+  background: var(--surface);
+}
+
+.what-if__result:empty {
+  display: none;
+}
+
+.what-if__result {
+  color: var(--green-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.source-note {
+  color: var(--subtle);
+  font-size: 0.8125rem;
+}

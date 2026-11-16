@@ -1,0 +1,146 @@
+.matrix-block {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Теплова карта 3×3 на темному тлі: напівпрозорі клітинки з рамкою того самого відтінку. */
+.risk-matrix {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
+  table-layout: fixed;
+}
+
+.risk-matrix caption {
+  margin-bottom: var(--space-1);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: left;
+  caption-side: top;
+}
+
+.risk-matrix th {
+  padding: 2px 4px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.risk-matrix th[scope='row'] {
+  text-align: right;
+}
+
+.risk-matrix .risk-matrix__axis {
+  color: var(--muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+}
+
+.risk-matrix .risk-matrix__corner {
+  width: 24%;
+  text-align: right;
+  vertical-align: bottom;
+}
+
+.risk-cell {
+  height: 56px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.risk-cell--level-0 {
+  border-color: var(--risk-0-line);
+  background: var(--risk-0-fill);
+}
+
+.risk-cell--level-1 {
+  border-color: var(--risk-1-line);
+  background: var(--risk-1-fill);
+}
+
+.risk-cell--level-2 {
+  border-color: var(--risk-2-line);
+  background: var(--risk-2-fill);
+}
+
+.risk-cell--level-3 {
+  border-color: var(--risk-3-line);
+  background: var(--risk-3-fill);
+}
+
+.risk-cell--level-4 {
+  border-color: var(--risk-4-line);
+  background: var(--risk-4-fill);
+}
+
+/* Клітинка «ви зараз»: яскрава рамка, без світіння. */
+.risk-cell.is-current {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.risk-cell.is-scenario {
+  outline: 2px dashed var(--green-2);
+  outline-offset: 1px;
+}
+
+.cell-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: var(--text-label);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cell-tag--scenario {
+  background: var(--green-2);
+}
+
+.matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--subtle);
+  font-size: 0.75rem;
+}
+
+.matrix-legend__steps {
+  display: grid;
+  flex: 1 1 120px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+}
+
+.matrix-legend__steps span {
+  height: 8px;
+  border: 1px solid transparent;
+  border-radius: 1px;
+}
+
+@media (max-width: 420px) {
+  .risk-matrix {
+    border-spacing: 3px;
+  }
+
+  .risk-cell {
+    height: 48px;
+  }
+
+  /* Вузька клітинка: без великих літер і розрядки, щоб «ви зараз» уміщалося без зменшення до 9 px. */
+  .cell-tag {
+    padding: 1px 4px;
+    font-size: var(--text-tag);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+

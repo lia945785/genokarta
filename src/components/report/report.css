@@ -1,0 +1,65 @@
+/*
+ * Спільні примітиви звіту: кольори статусів у тексті, підпис синьою ручкою, фокусне число.
+ * Стилі окремих блоків лежать поруч із їхніми компонентами (DiseasePanel.css, CoveragePanel.css тощо).
+ */
+
+/* ---------- Кольори статусів у тексті ---------- */
+
+.tone-green {
+  color: var(--green-2);
+}
+
+.tone-amber {
+  color: var(--amber-2);
+}
+
+.tone-coral {
+  color: var(--coral-2);
+}
+
+.tone-rose {
+  color: var(--rose-2);
+}
+
+.tone-accent {
+  color: var(--accent-ink);
+}
+
+/* ---------- Підпис ручкою, фокусне число, статуси текстом ---------- */
+
+/* Підпис над заголовком половини розвороту — синя кулькова ручка, як напис під знімком в альбомі. */
+.caption {
+  color: var(--accent-ink);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+/* Фокус успадкованої половини: велике число перцентиля, поруч його значення словами. */
+.focal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+  margin: 0;
+}
+
+.focal__number {
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.focal__label {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.factor__status,
+.tech-details__verdict {
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}

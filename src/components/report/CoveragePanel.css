@@ -1,0 +1,85 @@
+/* ---------- Повнота розрахунку ---------- */
+
+.coverage {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.coverage__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.coverage__title {
+  display: grid;
+  gap: 4px;
+}
+
+.coverage__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.coverage__grid .tile {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.coverage__grid dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.coverage__grid dd {
+  display: grid;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.coverage__grid small {
+  margin-top: 2px;
+  color: var(--subtle);
+  font-size: var(--text-label);
+  font-weight: 500;
+}
+
+/* Шкала: підкладка, суцільна заливка синьою ручкою, засічки порогів. */
+.meter {
+  position: relative;
+  display: block;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 1px;
+  background: var(--track);
+}
+
+.meter__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 1px;
+  background: var(--accent);
+}
+
+.meter__tick {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.7;
+}
+
+.coverage__note {
+  color: var(--muted);
+  font-size: 0.875rem;
+}

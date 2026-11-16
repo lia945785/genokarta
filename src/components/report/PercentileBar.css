@@ -1,0 +1,135 @@
+/* Приладна шкала перцентиля. */
+
+.gauge {
+  --gauge-color: var(--amber);
+
+  margin: 0;
+  padding: 0 2px;
+}
+
+.gauge--low {
+  --gauge-color: var(--green);
+}
+
+.gauge--high {
+  --gauge-color: var(--rose);
+}
+
+.gauge__track {
+  position: relative;
+  height: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--track);
+}
+
+.gauge__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--gauge-color);
+  opacity: 0.85;
+}
+
+/* Візир: вертикальна риска, що виходить за межі шкали, із центральною засічкою. */
+.gauge__cursor {
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 2px;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.gauge__cursor::before,
+.gauge__cursor::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.gauge__cursor::before {
+  top: 0;
+}
+
+.gauge__cursor::after {
+  bottom: 0;
+}
+
+/* Тонка смуга зон під шкалою. */
+.gauge__bands {
+  display: grid;
+  grid-template-columns: 20fr 60fr 20fr;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.gauge__band {
+  height: 3px;
+}
+
+.gauge__band--low {
+  background: var(--green);
+}
+
+.gauge__band--intermediate {
+  background: var(--amber);
+}
+
+.gauge__band--high {
+  background: var(--rose);
+}
+
+.gauge__ticks {
+  position: relative;
+  height: 22px;
+}
+
+.gauge__tick {
+  position: absolute;
+  top: 2px;
+  width: 1px;
+  height: 4px;
+  background: var(--line-strong);
+}
+
+.gauge__tick--major {
+  height: 7px;
+  background: var(--muted);
+}
+
+.gauge__tick-label {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  transform: translateX(-50%);
+}
+
+.gauge__tick-label--start {
+  transform: none;
+}
+
+.gauge__tick-label--end {
+  transform: translateX(-100%);
+}
+
+.gauge__zones {
+  display: grid;
+  grid-template-columns: 20fr 60fr 20fr;
+  color: var(--subtle);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.gauge--low .gauge__zone--low,
+.gauge--intermediate .gauge__zone--intermediate,
+.gauge--high .gauge__zone--high {
+  color: var(--ink);
+}

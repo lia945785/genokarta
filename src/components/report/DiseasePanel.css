@@ -1,0 +1,262 @@
+/* ---------- Деталі хвороби ---------- */
+
+.disease-detail {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+}
+
+.disease-detail.is-inactive {
+  display: none;
+}
+
+/*
+ * Назву хвороби на екрані вже показує карусель, тож заголовок розділу лишається лише для
+ * читача екрана й друку (у PDF каруселі немає).
+ */
+.disease-detail__head {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media print {
+  .disease-detail__head {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-1) 0;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+
+.disease-detail__icon {
+  display: grid;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: var(--accent-ink);
+}
+
+.disease-detail__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.disease-detail__head h2 {
+  margin-top: 2px;
+}
+
+.disease-detail__summary {
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+/* Пояснення «що з цим робити»: головний висновок, тому кольором основного тексту. */
+.disease-detail__outlook {
+  max-width: var(--measure);
+  margin-top: var(--space-2);
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/*
+ * Розворот: один знімок на дві половини. Пунктирна «нитка роду» відділяє успадковане від вашого:
+ * вертикальна на широкому екрані, горизонтальна на вузькому.
+ */
+.spread {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-6);
+}
+
+.spread__yours {
+  padding-top: var(--space-6);
+  border-top: 1.5px dashed var(--line-strong);
+}
+
+@media (min-width: 1180px) {
+  .spread {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 0;
+  }
+
+  .spread__inherited {
+    position: sticky;
+    top: var(--space-4);
+    align-self: start;
+    padding-right: var(--space-6);
+  }
+
+  .spread__yours {
+    padding-top: 0;
+    padding-left: var(--space-6);
+    border-top: 0;
+    border-left: 1.5px dashed var(--line-strong);
+  }
+}
+
+@media (max-width: 600px) {
+  .spread {
+    padding: var(--space-4);
+  }
+}
+
+.report-block {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+}
+
+.report-block > .panel__head {
+  margin-bottom: 0;
+}
+
+.report-block__text {
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* Заголовок половини розвороту. */
+.spread h3 {
+  margin-top: -12px;
+  font-size: 1.375rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* ---------- Технічні деталі (згорнутий блок) ---------- */
+
+.tech-details {
+  padding: 0;
+}
+
+.tech-details > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-panel);
+  cursor: pointer;
+  list-style: none;
+}
+
+.tech-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Шеврон: дивиться праворуч у згорнутому стані, донизу в розгорнутому. */
+.tech-details > summary::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  rotate: -45deg;
+  transition: rotate 0.15s ease-out;
+}
+
+.tech-details[open] > summary::before {
+  rotate: 45deg;
+}
+
+.tech-details > summary:hover {
+  background: var(--surface-hover);
+}
+
+.tech-details > summary:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.tech-details__title {
+  font-weight: 700;
+}
+
+.tech-details__hint {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.tech-details__body {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Що робити далі ---------- */
+
+.next-steps {
+  display: grid;
+  gap: var(--space-3);
+  max-width: none;
+  background: color-mix(in srgb, var(--green) 5%, var(--surface));
+}
+
+.next-steps p {
+  max-width: var(--measure);
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.next-steps__checkup {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.next-steps__label {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- Друк ---------- */
+
+@media print {
+  .disease-detail.is-inactive {
+    display: grid;
+  }
+
+  .disease-detail + .disease-detail {
+    break-before: page;
+  }
+
+  /* На папері розворот іде одним стовпцем: нитка роду стає горизонтальною. */
+  .spread {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .spread__inherited {
+    position: static;
+    padding-right: 0;
+  }
+
+  .spread__yours {
+    padding-top: var(--space-5);
+    padding-left: 0;
+    border-top: 1.5px dashed var(--line-strong);
+    border-left: 0;
+  }
+}

@@ -1,0 +1,86 @@
+/* ---------- Фактори способу життя ---------- */
+
+.factor-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--row-line);
+  list-style: none;
+}
+
+.factor {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--row-line);
+}
+
+.factor:last-child {
+  border-bottom: 1px solid var(--row-line);
+}
+
+@media (max-width: 480px) {
+  .factor {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .factor .factor__status {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+.factor__icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid;
+  border-radius: var(--radius-tile);
+}
+
+.factor__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.factor.is-ok .factor__icon {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green-2);
+}
+
+.factor.is-risk .factor__icon {
+  border-color: var(--amber-line);
+  background: var(--amber-soft);
+  color: var(--amber-2);
+}
+
+.factor__text {
+  display: grid;
+  min-width: 0;
+}
+
+.factor__name {
+  font-weight: 700;
+}
+
+.factor__value {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* Позначка «змінено»: синя ручка, як правка на полях альбому. */
+.factor__changed {
+  margin-left: var(--space-2);
+  padding: 0 6px;
+  border-radius: var(--radius-tile);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-size: var(--text-label);
+  font-weight: 700;
+  vertical-align: middle;
+}
