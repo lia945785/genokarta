@@ -1,0 +1,207 @@
+/* ---------- Головна: героїчна панель ---------- */
+
+.hero {
+  display: grid;
+  gap: var(--space-5);
+  overflow: hidden;
+  padding: var(--space-6);
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    padding: var(--space-7);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+.hero__text {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hero h1 {
+  max-width: 17ch;
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+  line-height: 1.06;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.hero__privacy {
+  max-width: 28ch;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Візуал: спіраль на темній «лабораторній» сітці. */
+.hero__visual {
+  --helix-a: var(--green-2);
+  --helix-b: var(--accent-ink);
+  --helix-highlight: var(--green-2);
+  --helix-rung: var(--line-strong);
+
+  /* Спіраль намальована просто на знімку героя, без рамки й сітки. */
+  position: relative;
+  min-height: 380px;
+}
+
+.hero__helix {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.helix-label {
+  position: absolute;
+  display: grid;
+  gap: 1px;
+  /* Підпис під знімком у альбомі: синя ручка на білому, без рамки. */
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: var(--surface);
+  line-height: 1.3;
+}
+
+.helix-label__id {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.helix-label__rsid {
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-tag);
+  font-weight: 400;
+}
+
+.helix-label__disease {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.helix-label--top {
+  top: 10%;
+  right: 5%;
+}
+
+.helix-label--middle {
+  top: 46%;
+  left: 4%;
+}
+
+.helix-label--bottom {
+  right: 6%;
+  bottom: 9%;
+}
+
+@media (max-width: 600px) {
+  .hero__visual {
+    min-height: 280px;
+  }
+
+  .helix-label--middle {
+    display: none;
+  }
+}
+
+/* ---------- Головна: нижня сітка ---------- */
+
+.home-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .home-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  }
+}
+
+.steps {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--row-line);
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--row-line);
+}
+
+.step__icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  color: var(--subtle);
+}
+
+.step:first-child .step__icon {
+  color: var(--accent-ink);
+}
+
+.step__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.step__body {
+  display: grid;
+  gap: 2px;
+}
+
+.step__title {
+  font-weight: 700;
+}
+
+.step__text {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.sample__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.sample__disease {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+}
+
+.sample__disease svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent-ink);
+}
+
+.sample__note {
+  color: var(--muted);
+  font-size: 0.875rem;
+}

@@ -1,0 +1,139 @@
+.dropzone-wrap {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.dropzone {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-5);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-tile);
+  background-color: var(--well);
+  text-align: center;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.dropzone--over {
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+.dropzone--error {
+  border-color: var(--coral);
+}
+
+.dropzone__icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-2);
+  place-items: center;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-tile);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.dropzone__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dropzone__title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.dropzone__hint {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.dropzone__formats {
+  margin-bottom: var(--space-3);
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  word-spacing: 0.4em;
+}
+
+.dropzone__demo {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.file-ready {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Кнопка «Замінити файл» переноситься під назву, коли панель вузька. */
+.file-ready__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-tile);
+  background: var(--green-soft);
+}
+
+.file-ready__badge {
+  display: grid;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-tile);
+  background: var(--bg);
+  color: var(--green-2);
+}
+
+.file-ready__badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.file-ready__title {
+  display: grid;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.file-ready__name {
+  overflow: hidden;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-ready__caption {
+  color: var(--green-2);
+  font-size: 0.8125rem;
+}
+
+.file-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.file-facts dt {
+  color: var(--subtle);
+  font-size: var(--text-label);
+  font-weight: 600;
+}
+
+.file-facts dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.0625rem;
+  font-weight: 500;
+}

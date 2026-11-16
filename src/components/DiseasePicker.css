@@ -1,0 +1,59 @@
+/* ---------- Вибір хвороб ---------- */
+
+.picker-legend {
+  font-size: 1.25rem;
+}
+
+/* Список хвороб іде у дві колонки, щойно панелі вистачає ширини. */
+.picker {
+  container-type: inline-size;
+}
+
+@container (min-width: 500px) {
+  .choice-list--diseases {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.choice--disease {
+  align-items: center;
+}
+
+/* Обрана хвороба: позначка в квадратику й назва синьою ручкою, без обведення — восьма обрана
+   картка не перетворює список на синє поле. */
+.choice--disease:has(input:checked) {
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.choice--disease:has(input:checked) .choice__title {
+  color: var(--accent-ink);
+}
+
+.choice--disease input {
+  margin-top: 0;
+}
+
+.choice__icon {
+  display: grid;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  color: var(--subtle);
+}
+
+.choice:has(input:checked) .choice__icon {
+  color: var(--accent-ink);
+}
+
+.choice__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Попередження під списком хвороб: відступ від карток. */
+.picker-warning {
+  margin-top: var(--space-3);
+}
