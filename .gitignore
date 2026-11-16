@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+
+# Службові теки AI-інструментів і локальні налаштування (не частина проєкту)
+.claude/
+.cursor/
+.impeccable/
