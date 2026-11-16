@@ -1,0 +1,24 @@
+stateDiagram-v2
+  state "Звіт актуальний" as fresh
+  state "Відповіді змінено" as stale
+  state "Анкету не завершено" as incomplete
+  state "Оновлення звіту" as refreshing
+  state "Помилка оновлення" as failed
+  state "Звіт оновлено" as updated
+  state "Підтвердження «Почати спочатку»" as confirm
+
+  [*] --> fresh: звіт отримано
+  fresh --> stale: відповідь змінено в анкеті
+  stale --> incomplete: змінена анкета містить помилку
+  incomplete --> stale: анкету завершено
+  stale --> refreshing: Оновити звіт
+  refreshing --> updated: новий звіт отримано (позначка «змінено» біля фактора)
+  refreshing --> failed: запит не вдався
+  failed --> refreshing: Оновити звіт ще раз
+  stale --> fresh: Скасувати зміни
+  incomplete --> fresh: Скасувати зміни
+  updated --> stale: знову змінено відповідь
+  fresh --> confirm: Почати спочатку
+  updated --> confirm: Почати спочатку
+  confirm --> fresh: Скасувати
+  confirm --> [*]: Так, почати спочатку

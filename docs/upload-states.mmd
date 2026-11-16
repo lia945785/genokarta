@@ -1,0 +1,18 @@
+stateDiagram-v2
+  state "Очікування файлу" as idle
+  state "Файл над зоною" as dragOver
+  state "Перевірка" as checking
+  state "Помилка" as error
+  state "Файл прийнято" as ready
+
+  [*] --> idle
+  idle --> dragOver: користувач тягне файл
+  dragOver --> idle: файл забрано із зони
+  dragOver --> checking: файл відпущено
+  idle --> checking: обрано файл або демо-файл
+  checking --> error: розширення, розмір або вміст не підходять
+  checking --> ready: формат розпізнано, маркери пораховано
+  error --> checking: обрано інший файл
+  error --> dragOver: користувач тягне інший файл
+  ready --> idle: Замінити файл
+  ready --> [*]: Далі

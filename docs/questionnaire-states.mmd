@@ -1,0 +1,27 @@
+stateDiagram-v2
+  state "Тіло і сон" as body
+  state "Харчування" as diet
+  state "Звички й активність" as habits
+  state "Середовище" as env
+  state "Перевірка всієї анкети" as check
+  state "Готуємо звіт" as submitting
+  state "Помилка запиту" as failed
+
+  [*] --> body: нова анкета (після перезавантаження — перший непідтверджений крок)
+  body --> body: зріст або вага поза межами (фокус на полі з помилкою)
+  body --> diet: Далі
+  diet --> habits: Далі
+  habits --> habits: не обрано куріння чи алкоголь
+  habits --> env: Далі
+  env --> env: не обрано середовище
+  env --> check: Отримати звіт
+  check --> body: є помилка на кроці 1
+  check --> submitting: усе заповнено
+  submitting --> failed: сервер не відповів
+  failed --> submitting: Отримати звіт ще раз
+  submitting --> [*]: звіт отримано
+
+  diet --> body: Назад або клік на крок
+  habits --> diet: Назад
+  env --> habits: Назад
+  body --> env: клік на вже пройдений крок
