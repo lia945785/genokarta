@@ -1,0 +1,240 @@
+/* ---------- Анкета: кроки, поля, дії, попередній підсумок ---------- */
+
+.questionnaire {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.segments {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tile);
+  background: var(--well);
+  list-style: none;
+}
+
+.segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 42px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--subtle);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: default;
+}
+
+.segment.is-done {
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.segment.is-done:hover {
+  background: var(--track);
+  color: var(--ink);
+}
+
+.segment:disabled {
+  opacity: 1;
+}
+
+.segment.is-current {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.segment__number {
+  display: grid;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+}
+
+.segment__number svg {
+  width: 13px;
+  height: 13px;
+}
+
+.segment.is-done .segment__number {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green-2);
+}
+
+.segment.is-current .segment__number {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.segment__label {
+  /* Довга назва кроку («Звички й активність») переноситься, а не обрізається трикрапкою. */
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  /* На телефоні видно номер кроку, а назва лишається для читача екрана (не display: none). */
+  .segment {
+    position: relative;
+  }
+
+  .segment:not(.is-current) .segment__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .segments {
+    grid-template-columns: auto auto auto auto;
+    justify-content: start;
+  }
+
+  .segment.is-current {
+    padding-inline: 12px;
+  }
+}
+
+.questionnaire__head {
+  display: grid;
+  gap: 4px;
+}
+
+.questionnaire__count {
+  color: var(--subtle);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.questionnaire__fields {
+  display: grid;
+  gap: var(--space-5);
+}
+
+fieldset.questionnaire__fields {
+  gap: var(--space-3);
+}
+
+.body-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.questionnaire__actions {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.live-summary__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.live-summary__label {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.live-summary__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.live-summary__value small {
+  color: var(--subtle);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.live-summary__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.live-factor {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 2px;
+  border-bottom: 1px solid var(--row-line);
+  font-size: 0.875rem;
+}
+
+.live-factor:last-child {
+  border-bottom: 0;
+}
+
+.live-factor__icon {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+}
+
+.live-factor__icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.live-factor.is-ok .live-factor__icon {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green-2);
+}
+
+.live-factor.is-risk .live-factor__icon {
+  border-color: var(--amber-line);
+  background: var(--amber-soft);
+  color: var(--amber-2);
+}
+
+.live-factor__name {
+  font-weight: 600;
+}
+
+.live-factor__status {
+  color: var(--subtle);
+  font-size: 0.75rem;
+}
+
+.live-factor.is-ok .live-factor__status {
+  color: var(--green-2);
+}
+
+.live-factor.is-risk .live-factor__status {
+  color: var(--amber-2);
+}

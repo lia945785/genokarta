@@ -1,0 +1,18 @@
+/* ---------- Анкета ---------- */
+
+.lifestyle-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 1100px) {
+  .lifestyle-grid {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+
+  .live-summary {
+    position: sticky;
+    top: var(--space-4);
+  }
+}
