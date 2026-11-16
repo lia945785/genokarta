@@ -1,0 +1,290 @@
+.shell {
+  display: grid;
+  gap: var(--space-4);
+  min-height: 100vh;
+  padding: var(--space-3);
+}
+
+@media (min-width: 1080px) {
+  .shell {
+    grid-template-columns: 256px minmax(0, 1fr);
+    align-items: start;
+    padding: var(--space-4);
+  }
+}
+
+.shell__main {
+  min-width: 0;
+}
+
+/* ---------- Бічна панель ---------- */
+
+/* Бічна панель лежить просто на картоні сторінки, як поле альбому: без рамки й фону. */
+.sidebar {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-2);
+}
+
+@media (min-width: 1080px) {
+  .sidebar {
+    position: sticky;
+    top: var(--space-4);
+    grid-template-rows: auto auto 1fr auto;
+    min-height: calc(100vh - 2 * var(--space-4));
+  }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 4px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+}
+
+.brand__mark svg {
+  width: 26px;
+  height: 26px;
+}
+
+.brand__strand-a {
+  stroke: var(--accent-ink);
+}
+
+.brand__strand-b {
+  stroke: var(--green-2);
+}
+
+.brand__text {
+  display: grid;
+  line-height: 1.2;
+}
+
+.brand__name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brand__tag {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.sidebar__nav {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.nav {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: var(--radius-tile);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.1s linear,
+    border-color 0.1s linear;
+}
+
+.nav__item:hover:not(:disabled) {
+  background: rgba(251, 251, 248, 0.55);
+  color: var(--ink);
+}
+
+.nav__item:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.nav__item:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* Поточний крок — знімок, піднятий над сторінкою. */
+.nav__item.is-active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--print-shadow);
+}
+
+.nav__icon {
+  display: grid;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  color: var(--subtle);
+}
+
+.nav__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav__item.is-active .nav__icon {
+  color: var(--accent-ink);
+}
+
+.nav__text {
+  display: grid;
+  min-width: 0;
+}
+
+.nav__label {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.nav__status {
+  overflow: hidden;
+  color: var(--subtle);
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav__status.mono {
+  font-size: var(--text-tag);
+}
+
+.nav__item.is-active .nav__status {
+  color: var(--accent-ink);
+}
+
+.privacy-card {
+  display: grid;
+  align-self: end;
+  gap: 6px;
+  padding: 0 var(--space-3);
+}
+
+.privacy-card svg {
+  width: 20px;
+  height: 20px;
+  color: var(--green-2);
+}
+
+.privacy-card__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.privacy-card__text {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.sidebar__note {
+  padding: 0 4px;
+  color: var(--subtle);
+  font-size: 0.75rem;
+}
+
+@media print {
+  .shell {
+    display: block;
+    padding: 0;
+  }
+}
+
+/* ---------- Планшет і телефон: верхня панель ---------- */
+
+@media (max-width: 1079px) {
+  .sidebar {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .sidebar__nav {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav {
+    grid-auto-flow: column;
+    justify-content: end;
+  }
+
+  .nav__item {
+    padding: 5px 10px 5px 5px;
+    white-space: nowrap;
+  }
+
+  .nav__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav__status,
+  .privacy-card,
+  .sidebar__note {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .brand__tag {
+    display: none;
+  }
+
+  .nav {
+    justify-content: start;
+  }
+
+  .nav__icon {
+    display: none;
+  }
+
+  /* Чотири пункти мають уміститися в 343 px без прихованої прокрутки; висота 44 px для пальця. */
+  .nav__item {
+    min-height: 44px;
+    padding: 7px 9px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav__item {
+    padding-inline: 7px;
+    font-size: 0.8125rem;
+  }
+}

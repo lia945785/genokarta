@@ -1,0 +1,658 @@
+/*
+ * Дизайн-токени світу «Родинний альбом».
+ * Тло — блідий шавлієвий картон сторінки альбому; поверхні — білі «знімки» з м’яким підйомом,
+ * графітове чорнило для тексту, синя кулькова ручка для підписів, посилань, дій і вибору.
+ * Дані — кольори вицвілого фотодруку: зелений сприятливо, охра середньо, мареновий несприятливо,
+ * приглушений рожевий — висока генетична схильність. Рамки лише там, де знімку потрібен край;
+ * ієрархію тримає шкала шрифту. Увесь текст має контраст щонайменше 4,5 : 1 на всіх поверхнях.
+ */
+:root {
+  color-scheme: light;
+
+  /* Тло й поверхні */
+  --bg: #e3e8e0; /* картон сторінки альбому */
+  --surface: #fbfbf8; /* білий знімок */
+  --well: #eef1eb; /* заглиблення всередині знімка */
+  --track: #dce2d8; /* підкладки шкал */
+  --line: #d3d9cf;
+  --line-strong: #aeb7ab;
+  --row-line: #e6eae3;
+  --grid-line: rgba(36, 39, 43, 0.05);
+  --print-shadow: 0 1px 2px rgba(36, 39, 43, 0.1), 0 8px 20px rgba(36, 39, 43, 0.06);
+  --print-shadow-lift: 0 2px 4px rgba(36, 39, 43, 0.12), 0 14px 30px rgba(36, 39, 43, 0.1);
+
+  /* Текст: графіт */
+  --ink: #24272b;
+  --muted: #4b5550;
+  --subtle: #5e6762;
+
+  /* Синя кулькова ручка: підписи, посилання, дії, вибір */
+  --accent: #2b4c9b;
+  --accent-ink: #2b4c9b;
+  --accent-solid: #2b4c9b; /* білий текст на ньому 8 : 1 */
+  --accent-soft: rgba(43, 76, 155, 0.08);
+  --accent-line: rgba(43, 76, 155, 0.35);
+
+  /* Зелений: сприятливо, низький ризик */
+  --green: #3e7d63;
+  --green-2: #2f6b52;
+  --green-soft: rgba(62, 125, 99, 0.1);
+  --green-line: rgba(62, 125, 99, 0.35);
+
+  /* Охра: середній рівень, «варто покращити» */
+  --amber: #b9822e;
+  --amber-2: #865a14;
+  --amber-soft: rgba(185, 130, 46, 0.12);
+  --amber-line: rgba(185, 130, 46, 0.4);
+
+  /* Мареновий: несприятливий спосіб життя — те, що можна змінити */
+  --coral: #a8423a;
+  --coral-2: #963a32;
+  --coral-soft: rgba(168, 66, 58, 0.09);
+  --coral-line: rgba(168, 66, 58, 0.35);
+
+  /*
+   * Приглушений рожевий: висока ГЕНЕТИЧНА схильність. Гени змінити не можна, тому це
+   * «підвищено», а не тривога. Текст на знімку 6,2 : 1.
+   */
+  --rose: #a85d6e;
+  --rose-2: #8e4a5a;
+  --rose-soft: rgba(168, 93, 110, 0.1);
+  --rose-line: rgba(168, 93, 110, 0.35);
+
+  /* Стани поверхонь */
+  --surface-hover: #ffffff;
+  --line-hover: #8f998c;
+  --row-hover: rgba(36, 39, 43, 0.03);
+  --green-faint: rgba(62, 125, 99, 0.06);
+
+  /*
+   * Шкала відносного ризику в матриці «гени × спосіб життя»: 0 — найнижчий, 4 — найвищий.
+   * Виводиться з семантичних кольорів, тому для друку змінюється разом із ними.
+   */
+  --risk-0-fill: color-mix(in srgb, var(--green) 55%, var(--surface));
+  --risk-0-line: color-mix(in srgb, var(--green) 75%, var(--surface));
+  --risk-1-fill: color-mix(in srgb, var(--green) 25%, var(--surface));
+  --risk-1-line: color-mix(in srgb, var(--green) 45%, var(--surface));
+  --risk-2-fill: color-mix(in srgb, var(--amber) 30%, var(--surface));
+  --risk-2-line: color-mix(in srgb, var(--amber) 55%, var(--surface));
+  --risk-3-fill: color-mix(in srgb, var(--coral) 30%, var(--surface));
+  --risk-3-line: color-mix(in srgb, var(--coral) 55%, var(--surface));
+  --risk-4-fill: color-mix(in srgb, var(--coral) 58%, var(--surface));
+  --risk-4-line: color-mix(in srgb, var(--coral) 85%, var(--surface));
+
+  --error: var(--coral-2);
+  --focus-ring: var(--accent);
+  --on-solid: #ffffff;
+
+  /* Шрифти: Manrope для тексту, JetBrains Mono лише для виміряних даних (перцентилі, rsID, генотипи) */
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Майже прямі кути знімків */
+  --radius-panel: 3px;
+  --radius-tile: 3px;
+  --radius-control: 6px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --measure: 64ch;
+
+  /* Ролі дрібного тексту. Функціональні підписи не менші за 12 px; декоративні мітки — за 11 px. */
+  --text-label: 0.75rem;
+  --text-tag: 0.6875rem;
+}
+
+/* ---------- Основа ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.375rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+h3 {
+  font-size: 1.0625rem;
+}
+
+h4 {
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent-ink);
+  text-underline-offset: 0.18em;
+}
+
+::selection {
+  background: rgba(43, 76, 155, 0.2);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Цифри, rsID, гени й генотипи — моноширинним шрифтом. */
+.mono,
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.mono {
+  font-size: 0.9375em;
+}
+
+.gene {
+  font-family: var(--font-mono);
+  font-style: italic;
+}
+
+/* ---------- Панелі, плитки, мітки ---------- */
+
+.panel {
+  /* Знімок на сторінці альбому: білий, з м’яким підйомом, без рамки. */
+  min-width: 0;
+  padding: var(--space-5);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: var(--print-shadow);
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: var(--space-4);
+  }
+}
+
+.panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.panel__title {
+  display: grid;
+  gap: 4px;
+}
+
+.panel__subtitle {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Плитка всередині знімка — лише тоноване заглиблення, без власної рамки. */
+.tile {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-tile);
+  background: var(--well);
+}
+
+/* Статусні бейджі: напівпрозора заливка й рамка того самого відтінку. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-tile);
+  background: var(--track);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.chip--green {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green-2);
+}
+
+.chip--accent {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.chip--amber {
+  border-color: var(--amber-line);
+  background: var(--amber-soft);
+  color: var(--amber-2);
+}
+
+.chip--coral {
+  border-color: var(--coral-line);
+  background: var(--coral-soft);
+  color: var(--coral-2);
+}
+
+.chip--rose {
+  border-color: var(--rose-line);
+  background: var(--rose-soft);
+  color: var(--rose-2);
+}
+
+.lead {
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.page {
+  display: grid;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-1);
+}
+
+.page-head__text {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.actions__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------- Форми ---------- */
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.field__label {
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.input {
+  width: 100%;
+  max-width: 10rem;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--well);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+}
+
+.input:hover {
+  border-color: var(--line-hover);
+}
+
+.input:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent-line);
+  outline-offset: 0;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--coral);
+}
+
+.field__unit,
+.field-hint {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.field-error {
+  margin-top: 6px;
+  color: var(--error);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.choice-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.choice-list--two {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tile);
+  background: var(--well);
+  cursor: pointer;
+  transition:
+    border-color 0.1s linear,
+    background-color 0.1s linear;
+}
+
+.choice:hover {
+  border-color: var(--line-strong);
+  background: var(--track);
+}
+
+/* Обраний варіант — білий знімок, обведений синьою ручкою; необраний лишається в заглибленні. */
+.choice:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.choice:has(input:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.choice input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0;
+  accent-color: var(--accent);
+}
+
+.choice input:focus-visible {
+  outline: none;
+}
+
+.choice__body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.choice__title {
+  font-weight: 600;
+}
+
+.choice__hint {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.range {
+  display: grid;
+  gap: 6px;
+}
+
+.range__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Повзунок: підкладка й прямокутний бігунок синьою ручкою. */
+.range input[type='range'] {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  background: transparent;
+  accent-color: var(--accent);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 1px;
+  background: var(--track);
+}
+
+.range input[type='range']::-webkit-slider-thumb {
+  width: 12px;
+  height: 22px;
+  margin-top: -9px;
+  border: 1px solid var(--accent-ink);
+  border-radius: 2px;
+  background: var(--accent-solid);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range input[type='range']::-moz-range-track {
+  height: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 1px;
+  background: var(--track);
+}
+
+.range input[type='range']::-moz-range-progress {
+  height: 6px;
+  background: var(--accent);
+}
+
+.range input[type='range']::-moz-range-thumb {
+  width: 12px;
+  height: 22px;
+  border: 1px solid var(--accent-ink);
+  border-radius: 2px;
+  background: var(--accent-solid);
+}
+
+.range input[type='range']:focus-visible {
+  outline: none;
+}
+
+.range input[type='range']:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.range input[type='range']:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.range output {
+  min-width: 8ch;
+  padding: 3px 10px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-tile);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ---------- Примітка ---------- */
+
+.notice {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  /* Примітка — підпис синьою ручкою просто на сторінці альбому: без рамки й тла, лише іконка. */
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.notice p {
+  max-width: var(--measure);
+}
+
+.notice svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  color: var(--accent-ink);
+}
+
+.notice strong {
+  color: var(--ink);
+}
+
+/* ---------- Друк: світлі кольори, щоб PDF був читабельним ---------- */
+
+@media print {
+  /* На папері: біле тло замість картону, знімки без тіні, але з тонкою рамкою, щоб блоки не злилися. */
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --well: #f4f5f2;
+    --grid-line: transparent;
+    --print-shadow: 0 0 0 1px #d3d9cf;
+    --print-shadow-lift: 0 0 0 1px #d3d9cf;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .panel {
+    break-inside: avoid;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /*
+   * Виняток: індикатор завантаження в кнопці. Без обертання він виглядає як зависла іконка,
+   * тому крутиться далі, але вдвічі повільніше. Малий поворот на місці не спричиняє заколисування.
+   */
+  .btn__spinner circle:last-child {
+    animation-duration: 1.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
