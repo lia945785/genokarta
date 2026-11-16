@@ -10,3 +10,4 @@ coverage
 .claude/
 .cursor/
 .impeccable/
+test-files/invalid-too-large.txt
