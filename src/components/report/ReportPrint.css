@@ -1,0 +1,308 @@
+/*
+ * PDF-звіт: «одна хвороба — один аркуш А4».
+ * Перший аркуш: шапка звіту, примітка й зведена таблиця. Далі кожна хвороба починається з нового
+ * аркуша і не розривається: назва, генетика, спосіб життя, матриця, технічні показники й поради
+ * вміщаються разом. Розміри задано в пунктах і міліметрах, бо це папір, а не екран.
+ */
+
+@page {
+  size: A4;
+  margin: 10mm 11mm;
+}
+
+@media print {
+  /* ---------- Хвороба: окремий аркуш ---------- */
+
+  .disease-detail,
+  .disease-detail.is-inactive {
+    display: grid;
+    gap: 2.5mm;
+    padding: 0;
+    break-before: page;
+    break-inside: avoid;
+    font-size: 9pt;
+  }
+
+  .disease-detail__head {
+    align-items: center;
+    gap: 3mm;
+    padding: 0;
+  }
+
+  .disease-detail__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .disease-detail__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .disease-detail__head h2 {
+    margin: 0;
+    font-size: 16pt;
+  }
+
+  .disease-detail .panel {
+    padding: 3.5mm 5mm;
+  }
+
+  /* Розворот на папері лишається у два стовпці: успадковане ліворуч, ваше праворуч. */
+  .spread {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 0;
+  }
+
+  .spread__inherited {
+    position: static;
+    padding-right: 5mm;
+  }
+
+  .spread__yours {
+    padding: 0 0 0 5mm;
+    border-top: 0;
+    border-left: 1.5px dashed var(--line-strong);
+  }
+
+  .spread h3 {
+    margin-top: -1.5mm;
+    font-size: 12pt;
+  }
+
+  .report-block {
+    gap: 2.5mm;
+  }
+
+  .caption {
+    font-size: 8pt;
+  }
+
+  .report-block__text {
+    font-size: 8.5pt;
+    line-height: 1.35;
+  }
+
+  .focal__number {
+    font-size: 30pt;
+  }
+
+  .focal__label {
+    font-size: 9pt;
+  }
+
+  /* Фактори способу життя: щільніші рядки. */
+  .factor {
+    gap: 2.5mm;
+    padding: 0.8mm 0;
+  }
+
+  .factor__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .factor__text {
+    line-height: 1.3;
+  }
+
+  .factor__icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .factor__value {
+    font-size: 7.5pt;
+  }
+
+  .factor__status {
+    font-size: 8pt;
+  }
+
+  /* Матриця «гени × спосіб життя». */
+  .risk-matrix {
+    border-spacing: 3px;
+  }
+
+  .risk-matrix caption {
+    font-size: 9pt;
+  }
+
+  .risk-matrix th,
+  .risk-matrix .risk-matrix__axis {
+    font-size: 7pt;
+  }
+
+  .risk-cell {
+    height: 19px;
+  }
+
+  .risk-matrix th {
+    padding: 0 2px;
+  }
+
+  .matrix-block {
+    gap: 1mm;
+  }
+
+  .cell-tag {
+    font-size: 6.5pt;
+  }
+
+  .matrix-legend,
+  .source-note {
+    font-size: 7pt;
+  }
+
+  /* ---------- Технічні показники: завжди розгорнуті ---------- */
+
+  .tech-details > summary {
+    min-height: 0;
+    padding: 3mm 5mm 0;
+    cursor: default;
+  }
+
+  .tech-details > summary::before,
+  .tech-details__hint {
+    display: none;
+  }
+
+  /* Запасний варіант, якщо блок не встиг розгорнутися перед друком. */
+  .tech-details::details-content {
+    content-visibility: visible;
+  }
+
+  /* Повнота ліворуч, маркери праворуч: так технічні показники займають половину висоти. */
+  .tech-details__body {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: 2mm 5mm;
+    padding: 1.5mm 5mm 3mm;
+    border-top: 0;
+  }
+
+  .tech-details__body > .table-note {
+    grid-column: 1 / -1;
+  }
+
+  .tech-details .table-note {
+    font-size: 7pt;
+    line-height: 1.35;
+  }
+
+  .coverage {
+    gap: 2mm;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .coverage__head {
+    align-items: center;
+  }
+
+  .coverage .chip {
+    font-size: 6.5pt;
+  }
+
+  .coverage h4 {
+    font-size: 9pt;
+  }
+
+  .coverage__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5mm;
+  }
+
+  .coverage__grid .tile {
+    padding: 2mm;
+  }
+
+  .coverage__grid small {
+    font-size: 6.5pt;
+  }
+
+  .coverage__grid dt {
+    font-size: 7.5pt;
+  }
+
+  .coverage__grid dd {
+    font-size: 11pt;
+  }
+
+  .coverage__note {
+    font-size: 7pt;
+    line-height: 1.35;
+  }
+
+  .markers-block {
+    gap: 1.5mm;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .table-wrap {
+    border: 0;
+    background: none;
+  }
+
+  .markers {
+    font-size: 7pt;
+  }
+
+  .markers th,
+  .markers td {
+    padding: 0.8mm 1.2mm;
+  }
+
+  .markers th:first-child,
+  .markers td:first-child {
+    padding-left: 0;
+  }
+
+  .markers th:last-child,
+  .markers td:last-child {
+    padding-right: 0;
+  }
+
+  .markers caption {
+    padding: 0 0 1mm;
+    border-bottom: 0;
+    font-size: 9pt;
+  }
+
+  .geno {
+    padding: 0 3px;
+  }
+
+  /* На папері сортування не працює: заголовок «Внесок» стає звичайним підписом. */
+  .sort-button {
+    min-height: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+  }
+
+  .sort-button span[aria-hidden] {
+    display: none;
+  }
+
+  /* ---------- Що робити далі ---------- */
+
+  .next-steps {
+    gap: 1.5mm;
+  }
+
+  .next-steps h3 {
+    font-size: 10pt;
+  }
+
+  .next-steps p {
+    max-width: none;
+    font-size: 8pt;
+    line-height: 1.4;
+  }
+
+  .next-steps__checkup {
+    padding-top: 1.5mm;
+  }
+}

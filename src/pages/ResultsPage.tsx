@@ -3,8 +3,10 @@ import { requestAnalysis } from '../api/analysis';
 import { DiseaseCarousel } from '../components/report/DiseaseCarousel';
 import { DiseasePanel } from '../components/report/DiseasePanel';
 import { ReportActions } from '../components/report/ReportActions';
+import { ReportSummary } from '../components/report/ReportSummary';
 import { ReportUpdatedNote, StaleReportBanner, type RefreshState } from '../components/report/StaleReportBanner';
 import '../components/report/report.css';
+import '../components/report/ReportPrint.css';
 import { InfoIcon } from '../components/ui/icons';
 import { changedFactorIds, evaluateFactors } from '../domain/lifestyle';
 import { toAnswers } from '../domain/questionnaire';
@@ -100,6 +102,9 @@ export function ResultsPage({ onRestart, onEditLifestyle, reportStale }: Results
           вашого файлу взято лише кількість маркерів, а спосіб життя оцінено за вашими відповідями.
         </p>
       </aside>
+
+      {/* Лише в PDF: зведена таблиця на першому аркуші замість каруселі. */}
+      <ReportSummary diseases={diseases} statuses={statuses} />
 
       {diseases.length > 1 && (
         <DiseaseCarousel

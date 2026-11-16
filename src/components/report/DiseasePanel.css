@@ -231,32 +231,4 @@
   font-weight: 600;
 }
 
-/* ---------- Друк ---------- */
-
-@media print {
-  .disease-detail.is-inactive {
-    display: grid;
-  }
-
-  .disease-detail + .disease-detail {
-    break-before: page;
-  }
-
-  /* На папері розворот іде одним стовпцем: нитка роду стає горизонтальною. */
-  .spread {
-    grid-template-columns: 1fr;
-    gap: var(--space-5);
-  }
-
-  .spread__inherited {
-    position: static;
-    padding-right: 0;
-  }
-
-  .spread__yours {
-    padding-top: var(--space-5);
-    padding-left: 0;
-    border-top: 1.5px dashed var(--line-strong);
-    border-left: 0;
-  }
-}
+/* Друк: компактна розкладка «одна хвороба — один аркуш» лежить у ReportPrint.css. */

@@ -1,0 +1,58 @@
+/* ---------- Зведена таблиця першого аркуша PDF ---------- */
+
+.report-summary {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.report-summary h2 {
+  font-size: 1.125rem;
+}
+
+.report-summary__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.report-summary__table th,
+.report-summary__table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--row-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report-summary__table thead th {
+  border-bottom: 1.5px solid var(--line-strong);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.report-summary__table tbody th {
+  font-weight: 700;
+}
+
+.report-summary__table .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.report-summary__table thead .num {
+  font-family: inherit;
+}
+
+/* Вердикт про повноту — останній стовпець: в один рядок, щоб таблиця не роздувалася. */
+.report-summary__table td:last-child {
+  white-space: nowrap;
+}
+
+.report-summary__pct {
+  color: var(--subtle);
+}
+
+.report-summary__note {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
