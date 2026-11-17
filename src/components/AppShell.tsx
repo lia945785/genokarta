@@ -104,7 +104,6 @@ export function AppShell({ route, flow, reportStale, fileName, onNavigate, child
           </p>
         </div>
 
-        <p className="sidebar__note">Навчальний STEM-проєкт. Не є медичним висновком.</p>
       </aside>
 
       <div className="shell__main">{children}</div>

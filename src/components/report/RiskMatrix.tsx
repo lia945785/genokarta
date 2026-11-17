@@ -48,7 +48,7 @@ export function RiskMatrix({ genetic, current, scenario }: RiskMatrixProps) {
           </tr>
           <tr>
             <th scope="col" className="risk-matrix__axis risk-matrix__corner">
-              Генетична схильність
+              Генетична схиль{'\u00AD'}ність
             </th>
             {LIFESTYLE_ORDER.map((lifestyle) => (
               <th key={lifestyle} scope="col">

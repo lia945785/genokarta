@@ -197,12 +197,6 @@
   font-size: 0.8125rem;
 }
 
-.sidebar__note {
-  padding: 0 4px;
-  color: var(--subtle);
-  font-size: 0.75rem;
-}
-
 @media print {
   .shell {
     display: block;
@@ -245,8 +239,7 @@
   }
 
   .nav__status,
-  .privacy-card,
-  .sidebar__note {
+  .privacy-card {
     display: none;
   }
 }
@@ -279,5 +272,16 @@
   .nav__item {
     padding-inline: 7px;
     font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .sidebar {
+    padding-inline: 0;
+  }
+
+  .nav__item {
+    padding-inline: 4px;
+    font-size: 0.75rem;
   }
 }

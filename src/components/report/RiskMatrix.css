@@ -129,6 +129,10 @@
     border-spacing: 3px;
   }
 
+  .risk-matrix .risk-matrix__corner {
+    padding-inline: 0;
+  }
+
   .risk-cell {
     height: 48px;
   }

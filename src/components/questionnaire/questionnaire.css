@@ -7,6 +7,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
+  container-type: inline-size;
   margin: 0;
   padding: 3px;
   border: 1px solid var(--line);
@@ -90,6 +91,19 @@
 .segment__label {
   line-height: 1.25;
   text-wrap: balance;
+}
+
+@container (max-width: 560px) {
+  .segment {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 4px;
+  }
+
+  .segment__label {
+    font-size: 0.8125rem;
+    text-align: center;
+  }
 }
 
 @media (max-width: 760px) {
