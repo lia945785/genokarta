@@ -1,11 +1,5 @@
 import type { AncestryResult, DiseaseId, DiseaseReport } from '../domain/types';
 
-/**
- * МОКОВІ ДАНІ. Поки бекенд курсової не готовий, звіт береться звідси.
- * Ідентифікатори rsID і гени реальні, але ваги, перцентилі та показники покриття
- * демонстраційні й не обчислені з жодного справжнього файлу.
- */
-
 export const MOCK_ANCESTRY: AncestryResult = {
   group: 'Європейська',
   probability: 0.94,

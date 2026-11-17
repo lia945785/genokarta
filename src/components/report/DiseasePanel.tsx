@@ -26,7 +26,6 @@ interface DiseasePanelProps {
   statuses: FactorStatuses;
   active: boolean;
   panelId: string;
-  /** Фактори, відповідь на які змінилася під час останнього оновлення звіту. */
   changedFactors?: readonly FactorId[];
 }
 
@@ -59,15 +58,10 @@ export function DiseasePanel({ report, answers, statuses, active, panelId, chang
         <h2 id={`${panelId}-title`}>{disease.name}</h2>
       </header>
 
-      {/*
-       * Розворот альбому: ліворуч (на телефоні — вгорі) те, що успадковано, праворуч — те, що залежить
-       * від людини. Між ними пунктирна «нитка роду». Кожен факт сказано один раз.
-       */}
       <div className="panel spread">
         <section className="report-block spread__inherited" aria-labelledby={`${panelId}-genes`}>
           <p className="caption">Що ви успадкували</p>
           <h3 id={`${panelId}-genes`}>Генетична схильність</h3>
-          {/* Спершу значення числа, потім саме число: перцентиль не лякає без пояснення. */}
           <p className="report-block__text">
             Перцентиль показує, яку частку людей референсної групи перевищує ваш сумарний бал за
             маркерами. Це не ймовірність захворіти.
@@ -86,7 +80,6 @@ export function DiseasePanel({ report, answers, statuses, active, panelId, chang
           <h3 id={`${panelId}-life`}>
             Спосіб життя: <span className={`tone-${LIFESTYLE_TONE[lifestyle]}`}>{LIFESTYLE_LABEL[lifestyle].toLowerCase()}</span>
           </h3>
-          {/* Що з цим робити: гени не змінити, звички можна. */}
           <p className="report-block__text">
             {lifestyle === 'favorable'
               ? 'Ваші звички вже відповідають найнижчому відносному ризику, можливому за вашої генетики.'
@@ -142,10 +135,6 @@ export function DiseasePanel({ report, answers, statuses, active, panelId, chang
         </section>
       </div>
 
-      {/*
-       * Повнота розрахунку й таблиця маркерів потрібні не всім: за замовчуванням згорнуті,
-       * а в підсумку видно лише вердикт про повноту. Під час друку розгортаються (ResultsPage).
-       */}
       <details className="panel tech-details">
         <summary>
           <span className="tech-details__title">Технічні деталі розрахунку</span>
@@ -164,7 +153,6 @@ export function DiseasePanel({ report, answers, statuses, active, panelId, chang
         </div>
       </details>
 
-      {/* Завершення розділу: що робити далі. Останнім людина бачить дію, а не технічну таблицю. */}
       <section className="panel next-steps" aria-labelledby={`${panelId}-next`}>
         <h3 id={`${panelId}-next`}>Що робити далі</h3>
         <p>

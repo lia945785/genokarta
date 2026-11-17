@@ -10,7 +10,6 @@ interface AnalysisContextValue {
 const AnalysisContext = createContext<AnalysisContextValue | null>(null);
 
 export function AnalysisProvider({ children }: { children: ReactNode }) {
-  // Після перезавантаження сторінки відновлюємо стан цієї вкладки (див. persistence.ts).
   const [state, dispatch] = useReducer(
     analysisReducer,
     initialState,

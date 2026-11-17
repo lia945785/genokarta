@@ -6,14 +6,12 @@ import { Button } from './ui/Button';
 import { CheckIcon, RefreshIcon, UploadIcon } from './ui/icons';
 import './FileDropzone.css';
 
-/** Стани зони завантаження (див. docs/upload-states.png). */
 type DropzoneStatus = 'idle' | 'dragOver' | 'checking' | 'error';
 
 interface FileDropzoneProps {
   file: GenomeFileInfo | null;
   onAccepted: (file: GenomeFileInfo) => void;
   onCleared: () => void;
-  /** Почалася перевірка нового файлу: сторінка ховає застарілі помилки на кшталт «Спершу додайте файл». */
   onCheckStarted?: () => void;
 }
 
@@ -45,7 +43,6 @@ export function FileDropzone({ file, onAccepted, onCleared, onCheckStarted }: Fi
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const selected = event.target.files?.[0];
-    // Скидаємо значення, щоб повторний вибір того самого файлу теж спрацював.
     event.target.value = '';
     if (selected) void checkFile(selected);
   }

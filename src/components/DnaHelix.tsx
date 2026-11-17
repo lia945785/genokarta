@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-/** Номери «сходинок», підсвічених як маркери, які аналізує система. */
 const HIGHLIGHTED = new Set([5, 12, 18]);
 const RUNGS = 24;
 const SAMPLES = 180;
@@ -9,7 +8,6 @@ const TURNS = 2.1;
 interface Point {
   x: number;
   y: number;
-  /** Глибина від −1 (позаду) до 1 (попереду). */
   z: number;
 }
 
@@ -17,12 +15,6 @@ function readColor(element: Element, name: string, fallback: string): string {
   return getComputedStyle(element).getPropertyValue(name).trim() || fallback;
 }
 
-/**
- * Анімована подвійна спіраль ДНК на canvas у вигляді векторних ліній:
- * зелений і фіолетовий ланцюги, тонкі «сходинки» між ними й підсвічені маркери.
- * Положення точок рахуються формулою. Задні відрізки тьмяніші за передні, що дає об’єм
- * без градієнтів і світіння. Якщо користувач просить менше руху, спіраль нерухома.
- */
 export function DnaHelix({ className = '' }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -35,7 +27,6 @@ export function DnaHelix({ className = '' }: { className?: string }) {
     let colors = { a: '#34d399', b: '#a78bfa', hi: '#34d399', rung: '#2a3140' };
     let frameId = 0;
     let phase = 0.6;
-    /** Чи видно спіраль у вікні. Поза екраном кадри не малюються, щоб не витрачати процесор і батарею. */
     let isVisible = true;
 
     function updateColors() {
@@ -59,7 +50,6 @@ export function DnaHelix({ className = '' }: { className?: string }) {
     function pointAt(t: number, strand: 1 | -1, width: number, height: number): Point {
       const amplitude = Math.min(width * 0.3, 112);
       const angle = t * TURNS * Math.PI * 2 + phase;
-      // Невеликий нахил робить спіраль схожою на тривимірну.
       const tilt = (t - 0.5) * width * 0.12;
       return {
         x: width / 2 + tilt + strand * Math.sin(angle) * amplitude,
@@ -92,7 +82,6 @@ export function DnaHelix({ className = '' }: { className?: string }) {
       const height = canvas.clientHeight;
       context.clearRect(0, 0, width, height);
 
-      // Задні половини ланцюгів, потім сходинки, потім передні половини.
       drawStrand(1, colors.a, false, width, height);
       drawStrand(-1, colors.b, false, width, height);
 
@@ -109,7 +98,6 @@ export function DnaHelix({ className = '' }: { className?: string }) {
         context.lineTo(b.x, b.y);
         context.stroke();
 
-        // Вузли на кінцях сходинки: квадратні, як точки на приладовій шкалі.
         for (const node of [a, b]) {
           const size = highlight ? 5 : 2 + 1.5 * ((node.z + 1) / 2);
           context.globalAlpha = highlight ? 1 : 0.35 + 0.65 * ((node.z + 1) / 2);
@@ -135,14 +123,12 @@ export function DnaHelix({ className = '' }: { className?: string }) {
       updateColors();
       resize();
       if (motionQuery.matches || !isVisible) {
-        // Нерухомий кадр: користувач просить менше руху або спіраль поза екраном.
         draw();
       } else {
         loop();
       }
     }
 
-    // Анімація зупиняється, коли спіраль виходить за межі екрана, і продовжується з того ж кадру.
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       const nextVisible = entry.isIntersecting;
       if (nextVisible === isVisible) return;

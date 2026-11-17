@@ -8,17 +8,12 @@ interface ReportActionsProps {
   onRestart: () => void;
 }
 
-/**
- * Дії в шапці звіту: «Зберегти PDF», «Змінити відповіді», «Почати спочатку».
- * Початок спочатку видаляє файл, відповіді й звіт, тому спершу просить підтвердження.
- */
 export function ReportActions({ onEdit, onRestart }: ReportActionsProps) {
   const [confirming, setConfirming] = useState(false);
   const actionsRef = useRef<HTMLDivElement>(null);
   const confirmRef = useRef<HTMLDivElement>(null);
   const wasConfirming = useRef(false);
 
-  // Під час підтвердження фокус переходить на безпечну кнопку «Скасувати»; після скасування — назад на «Почати спочатку».
   useEffect(() => {
     if (confirming) {
       confirmRef.current?.querySelector<HTMLButtonElement>('[data-cancel]')?.focus();

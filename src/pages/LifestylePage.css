@@ -1,5 +1,3 @@
-/* ---------- Анкета ---------- */
-
 .lifestyle-grid {
   display: grid;
   gap: var(--space-4);

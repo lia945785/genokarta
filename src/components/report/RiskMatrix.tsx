@@ -11,21 +11,15 @@ import './RiskMatrix.css';
 interface RiskMatrixProps {
   genetic: GeneticCategory;
   current: LifestyleCategory;
-  /** Категорія у сценарії «що, якщо»; null, якщо сценарій не обрано. */
   scenario: LifestyleCategory | null;
 }
 
-/** Підписи стовпців з м’якими переносами (­): видно лише тоді, коли слово не вміщається. */
 const COLUMN_LABEL: Partial<Record<LifestyleCategory, string>> = {
   favorable: 'Сприят­ливий',
   intermediate: 'Промі­жний',
   unfavorable: 'Не­сприят­ливий',
 };
 
-/**
- * Матриця «гени × спосіб життя», як у Khera et al. (2016).
- * Таблиця, а не малюнок, щоб її могли прочитати й програми екранного доступу.
- */
 export function RiskMatrix({ genetic, current, scenario }: RiskMatrixProps) {
   const rows = [...GENETIC_ORDER].reverse();
   const showScenario = scenario !== null && scenario !== current;
@@ -34,7 +28,6 @@ export function RiskMatrix({ genetic, current, scenario }: RiskMatrixProps) {
     <div className="matrix-block">
       <table className="risk-matrix">
         <caption>
-          {/* Прихований опис: відтінок клітинки передає рівень лише кольором. */}
           Гени × спосіб життя<span className="visually-hidden">
             . Кожна клітинка має відносний рівень ризику від 1 (найнижчий) до 5 (найвищий), без
             абсолютних відсотків. Ви зараз: генетична схильність {GENETIC_LABEL[genetic].toLowerCase()},
@@ -59,7 +52,6 @@ export function RiskMatrix({ genetic, current, scenario }: RiskMatrixProps) {
             </th>
             {LIFESTYLE_ORDER.map((lifestyle) => (
               <th key={lifestyle} scope="col">
-                {/* М’які переноси, щоб довгі слова ламалися правильно на вузьких екранах. */}
                 {COLUMN_LABEL[lifestyle] ?? LIFESTYLE_LABEL[lifestyle]}
               </th>
             ))}

@@ -1,10 +1,7 @@
-/* ---------- Вибір хвороб ---------- */
-
 .picker-legend {
   font-size: 1.25rem;
 }
 
-/* Список хвороб іде у дві колонки, щойно панелі вистачає ширини. */
 .picker {
   container-type: inline-size;
 }
@@ -19,8 +16,6 @@
   align-items: center;
 }
 
-/* Обрана хвороба: позначка в квадратику й назва синьою ручкою, без обведення — восьма обрана
-   картка не перетворює список на синє поле. */
 .choice--disease:has(input:checked) {
   border-color: var(--line);
   background: var(--surface);
@@ -53,7 +48,6 @@
   height: 18px;
 }
 
-/* Попередження під списком хвороб: відступ від карток. */
 .picker-warning {
   margin-top: var(--space-3);
 }

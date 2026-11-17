@@ -15,11 +15,6 @@ interface DiseaseCarouselProps {
   onSelect: (id: DiseaseId) => void;
 }
 
-/**
- * Карусель хвороб звіту: назва поточної хвороби на всю ширину, стрілки з назвами сусідніх
- * (перемикання по колу) і крапки для переходу на будь-яку. Звіт про вибрану хворобу
- * відкривається під каруселлю (DiseasePanel).
- */
 export function DiseaseCarousel({ diseases, statuses, currentIndex, onSelect }: DiseaseCarouselProps) {
   const count = diseases.length;
   const current = diseases[currentIndex];
@@ -31,7 +26,6 @@ export function DiseaseCarousel({ diseases, statuses, currentIndex, onSelect }: 
     onSelect(diseases[(currentIndex + offset + count) % count].diseaseId);
   }
 
-  // Стрілки вліво/вправо на клавіатурі гортають карусель, коли фокус усередині неї.
   function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
     if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
     event.preventDefault();
@@ -52,7 +46,6 @@ export function DiseaseCarousel({ diseases, statuses, currentIndex, onSelect }: 
         </span>
       </button>
 
-      {/* Назва поточної хвороби; перцентиль — у розвороті нижче, позицію в списку показують крапки. */}
       <div className="carousel__current" aria-live="polite" aria-atomic="true">
         <span className="carousel__name">{DISEASES[current.diseaseId].name}</span>
         <span className="visually-hidden">

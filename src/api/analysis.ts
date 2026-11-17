@@ -7,17 +7,6 @@ export interface AnalysisRequest {
   diseaseIds: readonly DiseaseId[];
 }
 
-/**
- * Заглушка серверного аналізу. Імітує затримку мережі й повертає моковий звіт.
- *
- * Коли бекенд курсової буде готовий, тіло функції замінюється на запит, наприклад:
- *   const body = new FormData();
- *   body.append('file', file);
- *   body.append('diseases', diseaseIds.join(','));
- *   const response = await fetch('/api/analyses', { method: 'POST', body });
- *   return (await response.json()) as AnalysisReport;
- * Решта застосунку від цього не зміниться, бо працює лише з типом AnalysisReport.
- */
 export async function requestAnalysis(
   request: AnalysisRequest,
   delayMs = 900,

@@ -2,16 +2,7 @@ import { DISEASE_IDS } from '../data/diseases';
 import { DEFAULT_DRAFT, EMPTY_PROGRESS } from '../domain/questionnaire';
 import { initialState, type AnalysisState } from './analysisReducer';
 
-/**
- * Збереження стану в sessionStorage, щоб перезавантаження сторінки не стирало відповіді й звіт.
- * sessionStorage належить лише цій вкладці й очищується після її закриття, тож обіцянка
- * «відповіді зберігаються лише до закриття вкладки» лишається правдивою.
- * Зберігаються ті самі дані, що й у стані: метадані файлу (без його вмісту), вибір хвороб,
- * відповіді анкети й звіт.
- */
-
 export const STORAGE_KEY = 'genokarta:session';
-/** Збільшуйте, якщо змінюється форма AnalysisState: старі записи тоді просто ігноруються. */
 export const STORAGE_VERSION = 1;
 
 type ReadableStorage = Pick<Storage, 'getItem'>;
@@ -21,7 +12,6 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-/** Читає збережений стан. Будь-що пошкоджене чи застаріле дає null, і застосунок починає з нуля. */
 export function loadState(storage: ReadableStorage | null): AnalysisState | null {
   if (!storage) return null;
   try {
@@ -47,17 +37,15 @@ export function loadState(storage: ReadableStorage | null): AnalysisState | null
   }
 }
 
-/** Записує стан. Помилки (приватний режим, переповнене сховище) не ламають застосунок. */
 export function saveState(storage: WritableStorage | null, state: AnalysisState): void {
   if (!storage) return;
   try {
     storage.setItem(STORAGE_KEY, JSON.stringify({ version: STORAGE_VERSION, state }));
   } catch {
-    // Без збереження застосунок працює як раніше: стан живе лише в пам'яті.
+    return;
   }
 }
 
-/** sessionStorage, якщо браузер дозволяє до нього доступ; інакше null. */
 export function getSessionStorage(): Storage | null {
   try {
     return typeof window === 'undefined' ? null : window.sessionStorage;

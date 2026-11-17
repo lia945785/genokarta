@@ -14,7 +14,6 @@ export type ValidationResult =
   | { ok: true; format: GenomeFormat; markerCount: number }
   | { ok: false; error: string };
 
-/** Перевірка назви й розміру ще до читання вмісту. Повертає текст помилки або null. */
 export function checkFileMeta(name: string, sizeBytes: number): string | null {
   const lowerName = name.toLowerCase();
   if (!ALLOWED_EXTENSIONS.some((extension) => lowerName.endsWith(extension))) {
@@ -34,7 +33,6 @@ const HEADER_ANCESTRY = /^rsid\tchromosome\tposition\tallele1\tallele2/i;
 const HEADER_MYHERITAGE = /^"?rsid"?,"?chromosome"?,"?position"?,"?result"?/i;
 const HEADER_LINE = /^"?rsid"?[\t,]/i;
 
-/** Визначає формат за початком файлу. Повертає null, якщо формат не розпізнано. */
 export function detectFormat(text: string): GenomeFormat | null {
   const lines = text
     .split(/\r?\n/)
@@ -52,7 +50,6 @@ export function detectFormat(text: string): GenomeFormat | null {
   return null;
 }
 
-/** Кількість рядків з маркерами: без коментарів, порожніх рядків і заголовків. */
 export function countMarkers(text: string): number {
   let count = 0;
   for (const rawLine of text.split(/\r?\n/)) {
@@ -63,10 +60,6 @@ export function countMarkers(text: string): number {
   return count;
 }
 
-/**
- * Повна перевірка файлу. Файл читається лише в браузері й нікуди не надсилається;
- * назовні повертаються тільки формат і кількість маркерів.
- */
 export async function inspectGenomeFile(file: File): Promise<ValidationResult> {
   const metaError = checkFileMeta(file.name, file.size);
   if (metaError) return { ok: false, error: metaError };

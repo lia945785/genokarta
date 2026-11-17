@@ -19,10 +19,6 @@ export const COVERAGE_VERDICT: Record<CoverageLevel, { label: string; text: stri
   },
 };
 
-/**
- * Приладна шкала 0–100: темна підкладка, суцільна заливка й засічки порогів.
- * Пороги 60 і 80 % відповідають межам «частковий» і «повний» розрахунок.
- */
 function Meter({ value, label, thresholds = [] }: { value: number; label: string; thresholds?: number[] }) {
   return (
     <span className="meter" role="img" aria-label={label}>
@@ -34,7 +30,6 @@ function Meter({ value, label, thresholds = [] }: { value: number; label: string
   );
 }
 
-/** Показники повноти та обмежень розрахунку. */
 export function CoveragePanel({ coverage }: { coverage: Coverage }) {
   const titleId = useId();
   const level = coverageLevel(coverage);
@@ -47,7 +42,6 @@ export function CoveragePanel({ coverage }: { coverage: Coverage }) {
         <div className="coverage__title">
           <h4 id={titleId}>Повнота та обмеження розрахунку</h4>
         </div>
-        {/* Вердикт про повноту вже видно в підсумку згорнутого блока; тут — чесна позначка, що числа прикладові. */}
         <span className="chip">приклад, не з вашого файлу</span>
       </div>
       <dl className="coverage__grid">

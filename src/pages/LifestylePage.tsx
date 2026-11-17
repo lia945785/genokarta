@@ -25,7 +25,6 @@ import type { LifestyleDraft } from '../domain/types';
 import { useAnalysis } from '../state/AnalysisContext';
 import './LifestylePage.css';
 
-/** Поля кожного кроку анкети. */
 const STEP_FIELDS: Record<QuestionnaireStepId, (props: StepFieldsProps) => ReactNode> = {
   body: BodyStep,
   diet: DietStep,
@@ -36,7 +35,6 @@ const STEP_FIELDS: Record<QuestionnaireStepId, (props: StepFieldsProps) => React
 interface LifestylePageProps {
   onBack: () => void;
   onDone: () => void;
-  /** Повернення до вже готового звіту (коли людина змінює відповіді). */
   onReturnToReport: () => void;
 }
 
@@ -44,8 +42,6 @@ type SubmitState = 'idle' | 'submitting' | 'failed';
 
 export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePageProps) {
   const { state, dispatch } = useAnalysis();
-  // Продовжуємо з першого непідтвердженого кроку (наприклад, після перезавантаження сторінки).
-  // Коли звіт уже є й людина змінює відповіді, починаємо з першого кроку: решта доступні з панелі кроків.
   const [stepIndex, setStepIndex] = useState(() => {
     if (state.answers) return 0;
     const next = QUESTIONNAIRE_STEPS.findIndex((item) => !state.progress.confirmedSteps.includes(item.id));
@@ -56,13 +52,11 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isFirstStepRender = useRef(true);
-  /** Лічильник невдалих спроб перейти далі: кожна переводить фокус на перше поле з помилкою. */
   const [errorFocusRequest, setErrorFocusRequest] = useState(0);
 
   const draft = state.lifestyle;
   const step = QUESTIONNAIRE_STEPS[stepIndex];
   const isLastStep = stepIndex === QUESTIONNAIRE_STEPS.length - 1;
-  /** Режим редагування: звіт уже є, людина повернулася змінити відповіді. */
   const isEditing = state.report !== null && state.answers !== null;
   const hasUnsavedChanges = isEditing && state.answers !== null && isDraftChanged(draft, state.answers);
 
@@ -72,7 +66,6 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
   }
   const confirmedSteps = state.progress.confirmedSteps;
 
-  // Після переходу між кроками переводимо фокус на заголовок кроку (для клавіатури й читачів екрана).
   useEffect(() => {
     if (isFirstStepRender.current) {
       isFirstStepRender.current = false;
@@ -81,8 +74,6 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
     stepHeadingRef.current?.focus();
   }, [stepIndex]);
 
-  // Після невдалої перевірки кроку фокус переходить на перше поле з помилкою,
-  // щоб користувач клавіатури й читача екрана одразу опинився там, де треба виправити.
   useEffect(() => {
     if (errorFocusRequest === 0) return;
     const form = formRef.current;
@@ -98,7 +89,6 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
 
   function update(patch: Partial<LifestyleDraft>) {
     dispatch({ type: 'lifestyleChanged', patch });
-    // Помилка поля зникає, щойно користувач почав його виправляти.
     setErrors((current) => {
       const next: StepErrors = { ...current };
       for (const key of Object.keys(patch)) delete next[key as keyof StepErrors];
@@ -121,8 +111,6 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
       return;
     }
 
-    // Під час редагування можна перескочити кроки, тож перед надсиланням перевіряємо всю анкету
-    // й ведемо на перший крок, де щось не так, замість того щоб мовчки нічого не робити.
     const invalidIndex = firstInvalidStepIndex(draft);
     if (invalidIndex !== null) {
       setStepIndex(invalidIndex);
@@ -157,7 +145,6 @@ export function LifestylePage({ onBack, onDone, onReturnToReport }: LifestylePag
     }
   }
 
-  /** Перейти можна на будь-який попередній крок і на кожен уже підтверджений (зручно, коли змінюєте відповіді). */
   function canGoToStep(index: number): boolean {
     return index !== stepIndex && (index < stepIndex || confirmedSteps.includes(QUESTIONNAIRE_STEPS[index].id));
   }

@@ -19,10 +19,6 @@ export const LIFESTYLE_LABEL: Record<LifestyleCategory, string> = {
   unfavorable: 'Несприятливий',
 };
 
-/**
- * Відносний рівень ризику клітинки матриці від 0 до 4.
- * Використовується лише для відтінку клітинки, а не як числова оцінка ризику.
- */
 export function riskLevel(genetic: GeneticCategory, lifestyle: LifestyleCategory): number {
   return GENETIC_ORDER.indexOf(genetic) + LIFESTYLE_ORDER.indexOf(lifestyle);
 }

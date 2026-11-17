@@ -17,9 +17,6 @@
   min-width: 0;
 }
 
-/* ---------- Бічна панель ---------- */
-
-/* Бічна панель лежить просто на картоні сторінки, як поле альбому: без рамки й фону. */
 .sidebar {
   display: grid;
   gap: var(--space-6);
@@ -127,7 +124,6 @@
   opacity: 0.45;
 }
 
-/* Поточний крок — знімок, піднятий над сторінкою. */
 .nav__item.is-active {
   background: var(--surface);
   color: var(--ink);
@@ -214,8 +210,6 @@
   }
 }
 
-/* ---------- Планшет і телефон: верхня панель ---------- */
-
 @media (max-width: 1079px) {
   .sidebar {
     grid-template-columns: auto minmax(0, 1fr);
@@ -274,7 +268,6 @@
     display: none;
   }
 
-  /* Чотири пункти мають уміститися в 343 px без прихованої прокрутки; висота 44 px для пальця. */
   .nav__item {
     min-height: 44px;
     padding: 7px 9px;

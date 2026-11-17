@@ -1,5 +1,3 @@
-/* ---------- Зведена таблиця першого аркуша PDF ---------- */
-
 .report-summary {
   display: grid;
   gap: var(--space-3);
@@ -43,7 +41,6 @@
   font-family: inherit;
 }
 
-/* Вердикт про повноту — останній стовпець: в один рядок, щоб таблиця не роздувалася. */
 .report-summary__table td:last-child {
   white-space: nowrap;
 }

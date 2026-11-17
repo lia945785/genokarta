@@ -53,10 +53,6 @@ export function DiseasePicker({ selected, onToggle, onSelectAll, error }: Diseas
           );
         })}
       </div>
-      {/*
-       * Попередження про хворобу Альцгеймера (текст погоджено з автором проєкту).
-       * Обгортка з aria-live лишається в DOM завжди, щоб читач екрана оголосив попередження, щойно воно з’явиться.
-       */}
       <div aria-live="polite">
         {selected.includes('alzheimer') && (
           <aside className="notice picker-warning">

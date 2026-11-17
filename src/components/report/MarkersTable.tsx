@@ -4,7 +4,6 @@ import type { Marker } from '../../domain/types';
 import { formatNumber, formatSigned } from '../../utils/format';
 import './MarkersTable.css';
 
-/** Генотип у вигляді моноширинного бейджа; ефектні алелі підсвічено. */
 function Genotype({ genotype, effectAllele }: { genotype: string; effectAllele: string }) {
   return (
     <span className="geno">

@@ -1,5 +1,3 @@
-/* ---------- Фактори способу життя ---------- */
-
 .factor-list {
   display: grid;
   gap: 0;
@@ -73,7 +71,6 @@
   font-size: 0.8125rem;
 }
 
-/* Позначка «змінено»: синя ручка, як правка на полях альбому. */
 .factor__changed {
   margin-left: var(--space-2);
   padding: 0 6px;

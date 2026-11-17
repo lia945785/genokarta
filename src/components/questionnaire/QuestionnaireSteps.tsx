@@ -11,11 +11,6 @@ import { formatNumber, plural } from '../../utils/format';
 import { NumberField, RadioGroup, RangeField } from '../FormControls';
 import './questionnaire.css';
 
-/**
- * Поля чотирьох кроків анкети. Кожен крок лише показує поля й передає зміни нагору;
- * перевірку, переходи й надсилання веде сторінка (LifestylePage).
- * Біля кожного питання — підказка, яка відповідь вважається сприятливою (правила з FACTOR_INFO).
- */
 export interface StepFieldsProps {
   draft: LifestyleDraft;
   errors: StepErrors;

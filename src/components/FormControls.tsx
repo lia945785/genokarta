@@ -9,7 +9,6 @@ interface NumberFieldProps {
   autoComplete?: string;
 }
 
-/** Числове поле: приймає і крапку, і кому як десятковий роздільник. */
 export function NumberField({ label, unit, value, onChange, error, autoComplete = 'off' }: NumberFieldProps) {
   const inputId = useId();
   const errorId = useId();
@@ -54,7 +53,6 @@ interface RadioGroupProps<T extends string> {
   value: T | null;
   onChange: (value: T) => void;
   error?: string;
-  /** Підказка під назвою групи, наприклад яка відповідь вважається сприятливою. */
   hint?: string;
 }
 

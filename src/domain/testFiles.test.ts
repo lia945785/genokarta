@@ -2,10 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { GenomeFormat } from './types';
 import { inspectGenomeFile } from './fileValidation';
 
-/**
- * Проганяє файли з теки test-files через ту саму перевірку, що й сторінка завантаження.
- * Так тестові файли завжди відповідають тому, що про них написано в test-files/README.md.
- */
 const files = import.meta.glob<string>('../../test-files/*.{txt,csv,vcf,json}', {
   query: '?raw',
   import: 'default',

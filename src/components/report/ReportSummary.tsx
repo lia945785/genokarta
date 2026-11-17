@@ -13,10 +13,6 @@ interface ReportSummaryProps {
   statuses: FactorStatuses;
 }
 
-/**
- * Зведена таблиця для першого аркуша PDF: усі хвороби в один погляд, з технічними показниками.
- * На екрані її замінює карусель, тому таблиця видима лише під час друку.
- */
 export function ReportSummary({ diseases, statuses }: ReportSummaryProps) {
   return (
     <section className="report-summary print-only" aria-labelledby="report-summary-title">

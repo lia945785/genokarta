@@ -1,5 +1,3 @@
-/* ---------- Деталі хвороби ---------- */
-
 .disease-detail {
   display: grid;
   gap: var(--space-4);
@@ -10,10 +8,6 @@
   display: none;
 }
 
-/*
- * Назву хвороби на екрані вже показує карусель, тож заголовок розділу лишається лише для
- * читача екрана й друку (у PDF каруселі немає).
- */
 .disease-detail__head {
   position: absolute;
   width: 1px;
@@ -38,7 +32,6 @@
   }
 }
 
-
 .disease-detail__icon {
   display: grid;
   flex: none;
@@ -62,7 +55,6 @@
   color: var(--muted);
 }
 
-/* Пояснення «що з цим робити»: головний висновок, тому кольором основного тексту. */
 .disease-detail__outlook {
   max-width: var(--measure);
   margin-top: var(--space-2);
@@ -77,10 +69,6 @@
   gap: 6px;
 }
 
-/*
- * Розворот: один знімок на дві половини. Пунктирна «нитка роду» відділяє успадковане від вашого:
- * вертикальна на широкому екрані, горизонтальна на вузькому.
- */
 .spread {
   display: grid;
   gap: var(--space-6);
@@ -135,15 +123,12 @@
   font-size: 0.9375rem;
 }
 
-/* Заголовок половини розвороту. */
 .spread h3 {
   margin-top: -12px;
   font-size: 1.375rem;
   font-weight: 800;
   line-height: 1.25;
 }
-
-/* ---------- Технічні деталі (згорнутий блок) ---------- */
 
 .tech-details {
   padding: 0;
@@ -165,7 +150,6 @@
   display: none;
 }
 
-/* Шеврон: дивиться праворуч у згорнутому стані, донизу в розгорнутому. */
 .tech-details > summary::before {
   content: '';
   flex: none;
@@ -206,8 +190,6 @@
   border-top: 1px solid var(--line);
 }
 
-/* ---------- Що робити далі ---------- */
-
 .next-steps {
   display: grid;
   gap: var(--space-3);
@@ -230,5 +212,3 @@
   color: var(--ink);
   font-weight: 600;
 }
-
-/* Друк: компактна розкладка «одна хвороба — один аркуш» лежить у ReportPrint.css. */

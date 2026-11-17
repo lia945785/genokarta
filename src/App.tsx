@@ -21,15 +21,12 @@ export default function App() {
     hasReport: state.report !== null,
   };
   const route = resolveRoute(requestedRoute, flow);
-  // Звіт застарів, якщо після нього відповіді анкети змінили, але звіт не оновили.
   const reportStale = state.answers !== null && isDraftChanged(state.lifestyle, state.answers);
 
-  // Якщо користувач відкрив крок, до якого ще не дійшов, виправляємо адресу.
   useEffect(() => {
     if (route !== requestedRoute) navigate(route, { replace: true });
   }, [route, requestedRoute, navigate]);
 
-  // Після переходу на інший екран прокручуємо вгору й переводимо фокус на вміст.
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;

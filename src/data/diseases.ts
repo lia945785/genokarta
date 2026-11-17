@@ -1,24 +1,16 @@
 import type { DiseaseId, FactorId } from '../domain/types';
 
-/** Дослідження, з яких узято набір факторів способу життя. */
 export type FactorsSource = 'khera2016' | 'rutten2018' | 'illustrative';
 
 export interface DiseaseInfo {
   id: DiseaseId;
   name: string;
   description: string;
-  /** Фактори способу життя, які враховуються для цієї хвороби. */
   factors: readonly FactorId[];
-  /** Звідки взято набір факторів. */
   factorsSource: FactorsSource;
-  /**
-   * Що зазвичай перевіряє лікар: загальна довідка для блоку «Що робити далі», не рекомендація
-   * конкретній людині. Текст погоджено з автором проєкту.
-   */
   checkup: string;
 }
 
-/** Порядок у списку: серцево-судинні, обмінні, онкологічні, дихальні, неврологічні. */
 export const DISEASE_IDS: readonly DiseaseId[] = [
   'cad',
   'stroke',

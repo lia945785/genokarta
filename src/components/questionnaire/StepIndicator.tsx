@@ -4,12 +4,10 @@ import './questionnaire.css';
 interface StepIndicatorProps {
   currentIndex: number;
   confirmedSteps: readonly QuestionnaireStepId[];
-  /** Чи можна перейти на крок: на попередні й на вже підтверджені (зручно, коли змінюєте відповіді). */
   canGoTo: (index: number) => boolean;
   onGoTo: (index: number) => void;
 }
 
-/** Панель кроків анкети: номер і назва кожного кроку, перехід на доступні кроки. */
 export function StepIndicator({ currentIndex, confirmedSteps, canGoTo, onGoTo }: StepIndicatorProps) {
   return (
     <ol className="segments" aria-label="Кроки анкети">

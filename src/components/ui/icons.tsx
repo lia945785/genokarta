@@ -1,10 +1,6 @@
 import type { JSX, ReactNode, SVGProps } from 'react';
 import type { DiseaseId } from '../../domain/types';
 
-/**
- * Невеликий набір контурних іконок 24×24 (лінія 2 px), у тому ж стилі,
- * що й іконки Untitled UI. Колір береться з currentColor.
- */
 export type IconProps = SVGProps<SVGSVGElement> & { className?: string };
 export type IconComponent = (props: IconProps) => JSX.Element;
 
@@ -158,7 +154,6 @@ export const BrainIcon: IconComponent = (props) => (
   </Icon>
 );
 
-/** Манометр: артеріальний тиск. */
 export const GaugeIcon: IconComponent = (props) => (
   <Icon {...props}>
     <path d="M3.5 17a9 9 0 1 1 17 0" />
@@ -167,28 +162,24 @@ export const GaugeIcon: IconComponent = (props) => (
   </Icon>
 );
 
-/** Блискавка: раптове порушення кровообігу в мозку. */
 export const ZapIcon: IconComponent = (props) => (
   <Icon {...props}>
     <path d="M13 2L4 14h7l-1 8 9-12h-7z" />
   </Icon>
 );
 
-/** Нерегулярна ЕКГ: хаотичний ритм передсердь. */
 export const ArrhythmiaIcon: IconComponent = (props) => (
   <Icon {...props}>
     <path d="M2 12h3l2-3 2 6 2-9 2 11 2-8 2 5 1-2h4" />
   </Icon>
 );
 
-/** Петля кишківника. */
 export const IntestineIcon: IconComponent = (props) => (
   <Icon {...props}>
     <path d="M6 20V8a4 4 0 0 1 4-4h6a3 3 0 0 1 0 6h-5a2 2 0 0 0 0 4h5a3 3 0 0 1 0 6h-3" />
   </Icon>
 );
 
-/** Легені з бронхами. */
 export const LungsIcon: IconComponent = (props) => (
   <Icon {...props}>
     <path d="M12 3v8M12 11l-3 2M12 11l3 2" />

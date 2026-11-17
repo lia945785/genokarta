@@ -34,7 +34,6 @@ const STEPS: ReadonlyArray<{ title: string; text: string; icon: IconComponent }>
   },
 ];
 
-/** Маркери, підписані біля спіралі. Усі вони є в демо-звіті. */
 const HELIX_LABELS = [
   { gene: 'TCF7L2', rsid: 'rs7903146', disease: 'Діабет 2 типу', position: 'top' },
   { gene: 'APOE', rsid: 'rs429358', disease: 'Хвороба Альцгеймера', position: 'middle' },
@@ -114,7 +113,6 @@ export function HomePage({ onStart }: { onStart: () => void }) {
             </div>
             <span className="chip">приклад</span>
           </div>
-          {/* Приклад у тій самій мові, що й звіт: підпис ручкою, фокусне число, статуси текстом. */}
           <div className="sample__body">
             <p className="sample__disease">
               <DropletIcon aria-hidden="true" />

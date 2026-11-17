@@ -18,24 +18,17 @@ import { formatDate, formatInt } from '../utils/format';
 interface ResultsPageProps {
   onRestart: () => void;
   onEditLifestyle: () => void;
-  /** Відповіді анкети змінено після побудови звіту. */
   reportStale: boolean;
 }
 
-/**
- * Екран звіту: шапка з діями, (за потреби) попередження про застарілий звіт, примітка,
- * карусель хвороб і розворот про вибрану хворобу.
- */
 export function ResultsPage({ onRestart, onEditLifestyle, reportStale }: ResultsPageProps) {
   const { state, dispatch } = useAnalysis();
   const { report, answers } = state;
   const [refreshState, setRefreshState] = useState<RefreshState>('idle');
-  /** Що змінилося під час останнього оновлення звіту: позначка «змінено» тримається, доки звіт відкрито. */
   const [changedFactors, setChangedFactors] = useState<FactorId[]>([]);
   const [activeId, setActiveId] = useState<DiseaseId | null>(report?.diseases[0]?.diseaseId ?? null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  // У PDF мають потрапити й згорнуті «Технічні деталі».
   useExpandDetailsForPrint('details.tech-details');
 
   if (!report || !answers) return null;
@@ -48,7 +41,6 @@ export function ResultsPage({ onRestart, onEditLifestyle, reportStale }: Results
     diseases.findIndex((disease) => disease.diseaseId === activeId),
   );
 
-  /** Перебудувати звіт за зміненими відповідями, не повертаючись до анкети. */
   async function refreshReport() {
     if (!draftAnswers || !state.file || !answers) return;
     setRefreshState('refreshing');
@@ -61,7 +53,6 @@ export function ResultsPage({ onRestart, onEditLifestyle, reportStale }: Results
       setChangedFactors(changedFactorIds(answers, draftAnswers));
       dispatch({ type: 'reportReceived', report: fresh, answers: draftAnswers });
       setRefreshState('done');
-      // Банер зникає разом із кнопкою, тож фокус переходить на заголовок звіту, а не губиться.
       headingRef.current?.focus();
     } catch {
       setRefreshState('failed');
@@ -103,7 +94,6 @@ export function ResultsPage({ onRestart, onEditLifestyle, reportStale }: Results
         </p>
       </aside>
 
-      {/* Лише в PDF: зведена таблиця на першому аркуші замість каруселі. */}
       <ReportSummary diseases={diseases} statuses={statuses} />
 
       {diseases.length > 1 && (

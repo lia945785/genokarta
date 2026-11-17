@@ -11,12 +11,10 @@ interface WhatIfPanelProps {
   scenario: LifestyleCategory;
 }
 
-/** Сценарій «що, якщо»: користувач уявляє, що змінив звичку, і бачить нову клітинку матриці. */
 export function WhatIfPanel({ factors, statuses, improved, onToggle, scenario }: WhatIfPanelProps) {
   const changeable = factors.filter((factor) => !statuses[factor]);
   const current = categorizeLifestyle(statuses, factors);
 
-  // Що сказати після вибору: категорія або змінюється (і позначка в матриці зсувається), або ні.
   let result = '';
   if (improved.length > 0) {
     result =

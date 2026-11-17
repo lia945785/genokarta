@@ -20,7 +20,6 @@ export function formatPercent(value: number): string {
   return `${formatNumber(value)}${NBSP}%`;
 }
 
-/** Число зі знаком: «+0,62», «−0,47». */
 export function formatSigned(value: number): string {
   const abs = decimalFormatter.format(Math.abs(value));
   if (value > 0) return `+${abs}`;
@@ -40,15 +39,10 @@ export function formatDate(iso: string): string {
   return dateFormatter.format(new Date(iso));
 }
 
-/** Порядковий числівник для перцентиля: «87-й». */
 export function ordinal(value: number): string {
   return `${Math.round(value)}-й`;
 }
 
-/**
- * Українська множина: plural(1, ['день', 'дні', 'днів']) → «день»,
- * plural(3, …) → «дні», plural(5, …) → «днів».
- */
 export function plural(value: number, forms: readonly [string, string, string]): string {
   const n = Math.abs(Math.trunc(value));
   const mod10 = n % 10;

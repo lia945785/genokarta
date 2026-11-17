@@ -71,7 +71,6 @@
   gap: var(--space-4);
 }
 
-/* Кнопка «Замінити файл» переноситься під назву, коли панель вузька. */
 .file-ready__head {
   display: flex;
   flex-wrap: wrap;

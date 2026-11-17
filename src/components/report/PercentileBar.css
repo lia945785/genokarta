@@ -1,5 +1,3 @@
-/* Приладна шкала перцентиля. */
-
 .gauge {
   --gauge-color: var(--amber);
 
@@ -30,7 +28,6 @@
   opacity: 0.85;
 }
 
-/* Візир: вертикальна риска, що виходить за межі шкали, із центральною засічкою. */
 .gauge__cursor {
   position: absolute;
   top: -8px;
@@ -59,7 +56,6 @@
   bottom: 0;
 }
 
-/* Тонка смуга зон під шкалою. */
 .gauge__bands {
   display: grid;
   grid-template-columns: 20fr 60fr 20fr;

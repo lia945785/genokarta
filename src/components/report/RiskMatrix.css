@@ -3,7 +3,6 @@
   gap: var(--space-2);
 }
 
-/* Теплова карта 3×3 на темному тлі: напівпрозорі клітинки з рамкою того самого відтінку. */
 .risk-matrix {
   width: 100%;
   border-collapse: separate;
@@ -78,7 +77,6 @@
   background: var(--risk-4-fill);
 }
 
-/* Клітинка «ви зараз»: яскрава рамка, без світіння. */
 .risk-cell.is-current {
   outline: 2px solid var(--ink);
   outline-offset: 1px;
@@ -135,7 +133,6 @@
     height: 48px;
   }
 
-  /* Вузька клітинка: без великих літер і розрядки, щоб «ви зараз» уміщалося без зменшення до 9 px. */
   .cell-tag {
     padding: 1px 4px;
     font-size: var(--text-tag);
@@ -143,4 +140,3 @@
     text-transform: none;
   }
 }
-

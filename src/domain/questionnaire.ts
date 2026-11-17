@@ -21,11 +21,6 @@ export const DEFAULT_DRAFT: LifestyleDraft = {
   environment: null,
 };
 
-/**
- * Фактори, у яких поле має значення за замовчуванням (повзунки сну й активності, порожній список звичок
- * харчування). Таке значення ще не є відповіддю: воно стає нею, коли людина змінила поле
- * або підтвердила крок кнопкою «Далі».
- */
 export type DefaultedFactor = 'sleep' | 'diet' | 'activity';
 
 const DEFAULTED_FACTOR_STEP: Record<DefaultedFactor, QuestionnaireStepId> = {
@@ -34,7 +29,6 @@ const DEFAULTED_FACTOR_STEP: Record<DefaultedFactor, QuestionnaireStepId> = {
   activity: 'habits',
 };
 
-/** Поле чернетки, зміна якого означає відповідь на фактор зі значенням за замовчуванням. */
 export const DEFAULTED_FACTOR_FIELD: Record<DefaultedFactor, keyof LifestyleDraft> = {
   sleep: 'sleepHours',
   diet: 'dietHabits',
@@ -42,9 +36,7 @@ export const DEFAULTED_FACTOR_FIELD: Record<DefaultedFactor, keyof LifestyleDraf
 };
 
 export interface QuestionnaireProgress {
-  /** Кроки, які людина підтвердила кнопкою «Далі» (або надіслала анкету). */
   confirmedSteps: QuestionnaireStepId[];
-  /** Фактори зі значенням за замовчуванням, поле яких людина змінила. */
   touchedFactors: DefaultedFactor[];
 }
 
@@ -54,7 +46,6 @@ export function isDefaultedFactorAnswered(factor: DefaultedFactor, progress: Que
   return progress.touchedFactors.includes(factor) || progress.confirmedSteps.includes(DEFAULTED_FACTOR_STEP[factor]);
 }
 
-/** Перший крок, що не проходить перевірку; null, якщо вся анкета заповнена коректно. */
 export function firstInvalidStepIndex(draft: LifestyleDraft): number | null {
   const index = QUESTIONNAIRE_STEPS.findIndex((step) => hasErrors(validateStep(step.id, draft)));
   return index === -1 ? null : index;
@@ -67,7 +58,6 @@ export type StepErrors = Partial<
   Record<'heightCm' | 'weightKg' | 'smoking' | 'alcohol' | 'environment', string>
 >;
 
-/** Перетворює введений текст на число; приймає і крапку, і кому. */
 export function parseNumber(value: string): number | null {
   const trimmed = value.trim();
   if (trimmed === '') return null;
@@ -112,7 +102,6 @@ export function hasErrors(errors: StepErrors): boolean {
   return Object.keys(errors).length > 0;
 }
 
-/** Повертає перевірені відповіді або null, якщо анкета ще не заповнена коректно. */
 export function toAnswers(draft: LifestyleDraft): LifestyleAnswers | null {
   const allValid = QUESTIONNAIRE_STEPS.every((step) => !hasErrors(validateStep(step.id, draft)));
   const heightCm = parseNumber(draft.heightCm);
@@ -141,12 +130,6 @@ export function toAnswers(draft: LifestyleDraft): LifestyleAnswers | null {
   };
 }
 
-/**
- * Попередня оцінка факторів за незаповненою анкетою (для живого підсумку).
- * Фактор, на який ще немає відповіді, у результаті відсутній. Значення повзунків і порожній
- * список звичок за замовчуванням відповіддю не вважаються, доки людина їх не змінила
- * або не підтвердила крок.
- */
 export function evaluateDraftFactors(
   draft: LifestyleDraft,
   progress: QuestionnaireProgress,
@@ -169,7 +152,6 @@ export function evaluateDraftFactors(
   return statuses;
 }
 
-/** Чернетка з уже надісланих відповідей: щоб скасувати незбережені зміни анкети. */
 export function answersToDraft(answers: LifestyleAnswers): LifestyleDraft {
   return {
     heightCm: String(answers.heightCm),
@@ -183,11 +165,6 @@ export function answersToDraft(answers: LifestyleAnswers): LifestyleDraft {
   };
 }
 
-/**
- * Чи розійшлася чернетка анкети з відповідями, за якими побудовано звіт.
- * Незавершена чи некоректна чернетка теж вважається зміною: звіт її не відображає.
- * Порядок звичок харчування не має значення.
- */
 export function isDraftChanged(draft: LifestyleDraft, answers: LifestyleAnswers): boolean {
   const current = toAnswers(draft);
   if (!current) return true;

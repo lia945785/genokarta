@@ -11,10 +11,6 @@ interface LiveSummaryProps {
   progress: QuestionnaireProgress;
 }
 
-/**
- * «Попередній підсумок» поруч з анкетою: ІМТ і стан кожного фактора, поки людина відповідає.
- * Значення за замовчуванням відповіддю не вважаються (див. evaluateDraftFactors).
- */
 export function LiveSummary({ draft, progress }: LiveSummaryProps) {
   const preview = evaluateDraftFactors(draft, progress);
   const height = parseNumber(draft.heightCm);

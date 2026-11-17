@@ -1,9 +1,5 @@
 import { useEffect } from 'react';
 
-/**
- * Перед друком розгортає згорнуті блоки <details> із заданим селектором, після друку
- * повертає як було. Так у PDF потрапляють і «Технічні деталі розрахунку».
- */
 export function useExpandDetailsForPrint(selector: string): void {
   useEffect(() => {
     let reopened: HTMLDetailsElement[] = [];

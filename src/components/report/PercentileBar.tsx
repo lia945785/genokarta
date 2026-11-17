@@ -4,18 +4,12 @@ import './PercentileBar.css';
 const MINOR_TICKS = [10, 30, 40, 50, 60, 70, 90];
 const MAJOR_TICKS = [0, 20, 80, 100];
 
-/**
- * Шкала перцентиля 0–100 у вигляді точного приладу: темна підкладка, суцільна заливка
- * до значення, засічки кожні 10 пунктів і вертикальний візир на позиції користувача.
- * Під шкалою — зони: низька (до 20), середня (20–80), висока (від 80).
- */
 export function PercentileBar({ percentile }: { percentile: number }) {
   const value = Math.min(Math.max(percentile, 0), 100);
   const category = geneticCategory(value);
 
   return (
     <figure className={`gauge gauge--${category}`}>
-      {/* Число стоїть великим над шкалою (у розвороті), тому тут лише візир, без повтору. */}
       <div
         className="gauge__track"
         role="img"

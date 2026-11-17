@@ -5,7 +5,6 @@ import './StaleReportBanner.css';
 export type RefreshState = 'idle' | 'refreshing' | 'failed' | 'done';
 
 interface StaleReportBannerProps {
-  /** Чи завершена змінена анкета (тоді звіт можна оновити одразу). */
   canRefresh: boolean;
   refreshState: RefreshState;
   onRefresh: () => void;
@@ -13,10 +12,6 @@ interface StaleReportBannerProps {
   onDiscard: () => void;
 }
 
-/**
- * Попередження, що відповіді анкети змінено, а звіт ще показує попередні:
- * «Оновити звіт» (або «Завершити анкету») і «Скасувати зміни».
- */
 export function StaleReportBanner({
   canRefresh,
   refreshState,
@@ -60,7 +55,6 @@ export function StaleReportBanner({
   );
 }
 
-/** Коротке підтвердження після оновлення звіту; оголошується читачем екрана. */
 export function ReportUpdatedNote() {
   return (
     <p className="update-note no-print" role="status">

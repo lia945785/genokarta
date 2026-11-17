@@ -7,7 +7,6 @@ interface LifestyleFactorsProps {
   factors: readonly FactorId[];
   statuses: FactorStatuses;
   answers: LifestyleAnswers;
-  /** Фактори, відповідь на які змінилася під час останнього оновлення звіту. */
   changed?: readonly FactorId[];
 }
 
@@ -25,7 +24,6 @@ export function LifestyleFactors({ factors, statuses, answers, changed = [] }: L
             <span className="factor__text">
               <span className="factor__name">
                 {FACTOR_INFO[factor].name}
-                {/* Змінена відповідь лишається позначеною у звіті, доки людина не почне знову або не оновить звіт. */}
                 {changed.includes(factor) && <span className="factor__changed">змінено</span>}
               </span>
               <span className="factor__value">

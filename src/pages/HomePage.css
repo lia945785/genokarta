@@ -1,5 +1,3 @@
-/* ---------- Головна: героїчна панель ---------- */
-
 .hero {
   display: grid;
   gap: var(--space-5);
@@ -46,14 +44,12 @@
   font-size: 0.875rem;
 }
 
-/* Візуал: спіраль на темній «лабораторній» сітці. */
 .hero__visual {
   --helix-a: var(--green-2);
   --helix-b: var(--accent-ink);
   --helix-highlight: var(--green-2);
   --helix-rung: var(--line-strong);
 
-  /* Спіраль намальована просто на знімку героя, без рамки й сітки. */
   position: relative;
   min-height: 380px;
 }
@@ -69,7 +65,6 @@
   position: absolute;
   display: grid;
   gap: 1px;
-  /* Підпис під знімком у альбомі: синя ручка на білому, без рамки. */
   padding: 4px 8px;
   border-radius: 3px;
   background: var(--surface);
@@ -120,8 +115,6 @@
     display: none;
   }
 }
-
-/* ---------- Головна: нижня сітка ---------- */
 
 .home-grid {
   display: grid;

@@ -19,7 +19,6 @@ const NAV: readonly NavItem[] = [
 interface AppShellProps {
   route: Route;
   flow: FlowState;
-  /** Відповіді змінено після побудови звіту, а звіт ще не оновлено. */
   reportStale: boolean;
   fileName: string | null;
   onNavigate: (route: Route) => void;
@@ -53,7 +52,6 @@ function BrandMark() {
   );
 }
 
-/** Каркас застосунку: бічна навігація (на телефоні — верхня панель) і робоча область. */
 export function AppShell({ route, flow, reportStale, fileName, onNavigate, children }: AppShellProps) {
   return (
     <div className="shell">

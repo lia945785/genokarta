@@ -1,19 +1,10 @@
-/*
- * Дизайн-токени світу «Родинний альбом».
- * Тло — блідий шавлієвий картон сторінки альбому; поверхні — білі «знімки» з м’яким підйомом,
- * графітове чорнило для тексту, синя кулькова ручка для підписів, посилань, дій і вибору.
- * Дані — кольори вицвілого фотодруку: зелений сприятливо, охра середньо, мареновий несприятливо,
- * приглушений рожевий — висока генетична схильність. Рамки лише там, де знімку потрібен край;
- * ієрархію тримає шкала шрифту. Увесь текст має контраст щонайменше 4,5 : 1 на всіх поверхнях.
- */
 :root {
   color-scheme: light;
 
-  /* Тло й поверхні */
-  --bg: #e3e8e0; /* картон сторінки альбому */
-  --surface: #fbfbf8; /* білий знімок */
-  --well: #eef1eb; /* заглиблення всередині знімка */
-  --track: #dce2d8; /* підкладки шкал */
+  --bg: #e3e8e0;
+  --surface: #fbfbf8;
+  --well: #eef1eb;
+  --track: #dce2d8;
   --line: #d3d9cf;
   --line-strong: #aeb7ab;
   --row-line: #e6eae3;
@@ -21,55 +12,41 @@
   --print-shadow: 0 1px 2px rgba(36, 39, 43, 0.1), 0 8px 20px rgba(36, 39, 43, 0.06);
   --print-shadow-lift: 0 2px 4px rgba(36, 39, 43, 0.12), 0 14px 30px rgba(36, 39, 43, 0.1);
 
-  /* Текст: графіт */
   --ink: #24272b;
   --muted: #4b5550;
   --subtle: #5e6762;
 
-  /* Синя кулькова ручка: підписи, посилання, дії, вибір */
   --accent: #2b4c9b;
   --accent-ink: #2b4c9b;
-  --accent-solid: #2b4c9b; /* білий текст на ньому 8 : 1 */
+  --accent-solid: #2b4c9b;
   --accent-soft: rgba(43, 76, 155, 0.08);
   --accent-line: rgba(43, 76, 155, 0.35);
 
-  /* Зелений: сприятливо, низький ризик */
   --green: #3e7d63;
   --green-2: #2f6b52;
   --green-soft: rgba(62, 125, 99, 0.1);
   --green-line: rgba(62, 125, 99, 0.35);
 
-  /* Охра: середній рівень, «варто покращити» */
   --amber: #b9822e;
   --amber-2: #865a14;
   --amber-soft: rgba(185, 130, 46, 0.12);
   --amber-line: rgba(185, 130, 46, 0.4);
 
-  /* Мареновий: несприятливий спосіб життя — те, що можна змінити */
   --coral: #a8423a;
   --coral-2: #963a32;
   --coral-soft: rgba(168, 66, 58, 0.09);
   --coral-line: rgba(168, 66, 58, 0.35);
 
-  /*
-   * Приглушений рожевий: висока ГЕНЕТИЧНА схильність. Гени змінити не можна, тому це
-   * «підвищено», а не тривога. Текст на знімку 6,2 : 1.
-   */
   --rose: #a85d6e;
   --rose-2: #8e4a5a;
   --rose-soft: rgba(168, 93, 110, 0.1);
   --rose-line: rgba(168, 93, 110, 0.35);
 
-  /* Стани поверхонь */
   --surface-hover: #ffffff;
   --line-hover: #8f998c;
   --row-hover: rgba(36, 39, 43, 0.03);
   --green-faint: rgba(62, 125, 99, 0.06);
 
-  /*
-   * Шкала відносного ризику в матриці «гени × спосіб життя»: 0 — найнижчий, 4 — найвищий.
-   * Виводиться з семантичних кольорів, тому для друку змінюється разом із ними.
-   */
   --risk-0-fill: color-mix(in srgb, var(--green) 55%, var(--surface));
   --risk-0-line: color-mix(in srgb, var(--green) 75%, var(--surface));
   --risk-1-fill: color-mix(in srgb, var(--green) 25%, var(--surface));
@@ -85,11 +62,9 @@
   --focus-ring: var(--accent);
   --on-solid: #ffffff;
 
-  /* Шрифти: Manrope для тексту, JetBrains Mono лише для виміряних даних (перцентилі, rsID, генотипи) */
   --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  /* Майже прямі кути знімків */
   --radius-panel: 3px;
   --radius-tile: 3px;
   --radius-control: 6px;
@@ -103,12 +78,9 @@
   --space-7: 48px;
   --measure: 64ch;
 
-  /* Ролі дрібного тексту. Функціональні підписи не менші за 12 px; декоративні мітки — за 11 px. */
   --text-label: 0.75rem;
   --text-tag: 0.6875rem;
 }
-
-/* ---------- Основа ---------- */
 
 *,
 *::before,
@@ -193,7 +165,6 @@ a {
   border: 0;
 }
 
-/* Цифри, rsID, гени й генотипи — моноширинним шрифтом. */
 .mono,
 .num {
   font-family: var(--font-mono);
@@ -209,10 +180,7 @@ a {
   font-style: italic;
 }
 
-/* ---------- Панелі, плитки, мітки ---------- */
-
 .panel {
-  /* Знімок на сторінці альбому: білий, з м’яким підйомом, без рамки. */
   min-width: 0;
   padding: var(--space-5);
   border-radius: var(--radius-panel);
@@ -245,7 +213,6 @@ a {
   font-size: 0.875rem;
 }
 
-/* Плитка всередині знімка — лише тоноване заглиблення, без власної рамки. */
 .tile {
   min-width: 0;
   padding: var(--space-3) var(--space-4);
@@ -253,7 +220,6 @@ a {
   background: var(--well);
 }
 
-/* Статусні бейджі: напівпрозора заливка й рамка того самого відтінку. */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -347,8 +313,6 @@ a {
   flex-wrap: wrap;
   gap: var(--space-2);
 }
-
-/* ---------- Форми ---------- */
 
 fieldset {
   min-width: 0;
@@ -451,7 +415,6 @@ legend {
   background: var(--track);
 }
 
-/* Обраний варіант — білий знімок, обведений синьою ручкою; необраний лишається в заглибленні. */
 .choice:has(input:checked) {
   border-color: var(--accent);
   background: var(--surface);
@@ -501,7 +464,6 @@ legend {
   gap: var(--space-4);
 }
 
-/* Повзунок: підкладка й прямокутний бігунок синьою ручкою. */
 .range input[type='range'] {
   flex: 1;
   min-width: 0;
@@ -579,13 +541,10 @@ legend {
   text-align: center;
 }
 
-/* ---------- Примітка ---------- */
-
 .notice {
   display: flex;
   gap: var(--space-3);
   align-items: flex-start;
-  /* Примітка — підпис синьою ручкою просто на сторінці альбому: без рамки й тла, лише іконка. */
   padding: 0;
   color: var(--muted);
   font-size: 0.9375rem;
@@ -607,9 +566,6 @@ legend {
   color: var(--ink);
 }
 
-/* ---------- Друк: світлі кольори, щоб PDF був читабельним ---------- */
-
-/* Блоки лише для PDF (наприклад, зведена таблиця звіту): на екрані приховані. */
 @media screen {
   .print-only {
     display: none !important;
@@ -617,7 +573,6 @@ legend {
 }
 
 @media print {
-  /* На папері: біле тло замість картону, знімки без тіні, але з тонкою рамкою, щоб блоки не злилися. */
   :root {
     --bg: #ffffff;
     --surface: #ffffff;
@@ -654,10 +609,6 @@ legend {
     transition-duration: 0.01ms !important;
   }
 
-  /*
-   * Виняток: індикатор завантаження в кнопці. Без обертання він виглядає як зависла іконка,
-   * тому крутиться далі, але вдвічі повільніше. Малий поворот на місці не спричиняє заколисування.
-   */
   .btn__spinner circle:last-child {
     animation-duration: 1.6s !important;
     animation-iteration-count: infinite !important;
